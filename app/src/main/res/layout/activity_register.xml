@@ -4,21 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/defaultBackground"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".LoginActivity"
-    android:background="@color/defaultBackground"
+    tools:context=".RegisterActivity"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/loginimg" />
 
     <EditText
-        android:id="@+id/etEmail"
+        android:id="@+id/etEmailReg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -27,7 +26,7 @@
         android:inputType="textEmailAddress" />
 
     <EditText
-        android:id="@+id/etPassword"
+        android:id="@+id/etPasswordReg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -35,18 +34,19 @@
         android:hint="Password"
         android:inputType="textPassword" />
 
-    <Button
-        android:id="@+id/btnLogin"
+    <EditText
+        android:id="@+id/etRePasswordReg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Login" />
+        android:ems="10"
+        android:hint="Reingrese Password"
+        android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/btnResgister"
+        android:id="@+id/btnResgisterReg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:text="Registrarse" />
-
 </LinearLayout>
