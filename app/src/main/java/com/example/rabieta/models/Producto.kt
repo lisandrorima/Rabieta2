@@ -20,6 +20,8 @@ class Producto (
     @DatabaseField
     val DescCorta: String,
     @DatabaseField
+    val DescLarga: String,
+    @DatabaseField
     val Precio : String,
     @DatabaseField
     val PrecioPromo : String,
@@ -27,7 +29,7 @@ class Producto (
     val porcentDesc : String
 ): Parcelable {
 
-    constructor() : this(0, "", "", "", "", "", "")
+    constructor() : this(0, "", "", "","", "", "", "")
 }
 
 @JsonClass(generateAdapter = true)
