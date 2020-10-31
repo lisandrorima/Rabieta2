@@ -1,4 +1,4 @@
-package com.example.steam.network
+package com.example.rabieta.network
 
 import com.example.rabieta.models.Producto
 import retrofit2.Call

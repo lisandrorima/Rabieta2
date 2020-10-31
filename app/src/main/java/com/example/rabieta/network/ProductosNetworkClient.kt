@@ -1,9 +1,10 @@
-package com.example.steam.network
 
+
+import com.example.rabieta.network.ProductosApi
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-object GamesNetworkClient {
+object ProductosNetworkClient {
 
     private const val BASE_URL = "http://demo6366239.mockable.io/"
 

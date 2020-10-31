@@ -4,18 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.rabieta.db.ProductosRepository
 import com.example.rabieta.models.Producto
-import com.example.rabieta.models.productosResponse
-import com.example.steam.network.GamesNetworkClient
-import io.reactivex.Single
+//import com.example.rabieta.network.ProductosNetworkClient
 import io.reactivex.SingleObserver
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -69,7 +63,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun retrieveProdApi() {
-        GamesNetworkClient.productosApi.GetProductos().enqueue(object : Callback<List<Producto>> {
+        ProductosNetworkClient.productosApi.GetProductos().enqueue(object : Callback<List<Producto>> {
 
             override fun onResponse(
                 call: Call<List<Producto>>,
