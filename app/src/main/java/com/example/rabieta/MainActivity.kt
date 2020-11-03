@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.RecyclerView
 import com.example.rabieta.db.ProductosRepository
 import com.example.rabieta.models.Producto
 import com.example.rabieta.preferences.PreferenceActivity
@@ -18,15 +19,15 @@ import io.reactivex.disposables.Disposable
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import com.example.rabieta.adapter.ProductosAdapter
+import com.example.rabieta.adapter.ProductosListener
 
+class MainActivity : AppCompatActivity(), ProductosListener {
 
-class MainActivity : AppCompatActivity() {
-
-
-
+    private lateinit var rvProductos : RecyclerView
+    private val adapter  : ProductosAdapter by lazy { ProductosAdapter(this) }
     private val compositeDisposable = CompositeDisposable()
 
-    private lateinit var text : TextView
     private lateinit var toolbar : Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,8 +39,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupUI() {
 
-        //text = findViewById(R.id.textjso)
         setupToolbar()
+        rvProductos = findViewById(R.id.rvProductos)
+        rvProductos.adapter = adapter
+        retrieveProdApi()
+    }
+
+    override fun onResume() {
+        super.onResume()
         retrieveProdApi()
     }
 
@@ -64,7 +71,7 @@ class MainActivity : AppCompatActivity() {
                     var content =""
                     for (producto in productos){
                         content+= producto.Id.toString() + producto.Titulo
-                        text.append(content)
+                        //text.append(content)
 
                     }
                 }
@@ -82,7 +89,8 @@ class MainActivity : AppCompatActivity() {
                 call: Call<List<Producto>>,
                 response: Response<List<Producto>>
             ) {
-                response.body()
+                response.body()?.let { adapter.updateGames(it) }
+
             }
 
             override fun onFailure(call: Call<List<Producto>>, t: Throwable) {
@@ -90,6 +98,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -111,5 +120,9 @@ class MainActivity : AppCompatActivity() {
     private fun launchSettings() {
         val intent = Intent(this, PreferenceActivity::class.java)
         startActivity(intent)
+
+    override fun onProductoClicked(producto: Producto) {
+        TODO("Not yet implemented")
+
     }
 }
