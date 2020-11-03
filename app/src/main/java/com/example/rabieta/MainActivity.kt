@@ -1,12 +1,17 @@
 package com.example.rabieta
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rabieta.db.ProductosRepository
 import com.example.rabieta.models.Producto
+import com.example.rabieta.preferences.PreferenceActivity
 //import com.example.rabieta.network.ProductosNetworkClient
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.CompositeDisposable
@@ -23,6 +28,7 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     private val adapter  : ProductosAdapter by lazy { ProductosAdapter(this) }
     private val compositeDisposable = CompositeDisposable()
 
+    private lateinit var toolbar : Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +38,8 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     }
 
     private fun setupUI() {
+
+        setupToolbar()
         rvProductos = findViewById(R.id.rvProductos)
         rvProductos.adapter = adapter
         retrieveProdApi()
@@ -40,6 +48,12 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     override fun onResume() {
         super.onResume()
         retrieveProdApi()
+    }
+
+    private fun setupToolbar() {
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = getString(R.string.ToolbarTittle)
     }
 
     //Esto saca los productos desde la BBDD
@@ -85,7 +99,30 @@ class MainActivity : AppCompatActivity(), ProductosListener {
         })
     }
 
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId){
+            R.id.it_settings -> launchSettings()
+            //R.id.it_aboutUs ->
+            //R.id.it_cam ->
+
+        }
+
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun launchSettings() {
+        val intent = Intent(this, PreferenceActivity::class.java)
+        startActivity(intent)
+
     override fun onProductoClicked(producto: Producto) {
         TODO("Not yet implemented")
+
     }
 }
