@@ -120,6 +120,7 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     private fun launchSettings() {
         val intent = Intent(this, PreferenceActivity::class.java)
         startActivity(intent)
+    }
 
     override fun onProductoClicked(producto: Producto) {
         TODO("Not yet implemented")
