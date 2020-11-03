@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Vista">
+
+    </PreferenceCategory>
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="swChangeMenuSize"
+        android:summary="Aumentar el tamaño del Menú"
+        android:title="Cambiar tamaño Menú" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="swDarkMode"
+        android:title="Modo Noche" />
+    <PreferenceCategory android:title="Opciones">
+
+    </PreferenceCategory>
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="swHideQr"
+        android:title="Ocultar QR" />
+</PreferenceScreen>

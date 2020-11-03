@@ -1,11 +1,16 @@
 package com.example.rabieta
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import com.example.rabieta.db.ProductosRepository
 import com.example.rabieta.models.Producto
+import com.example.rabieta.preferences.PreferenceActivity
 //import com.example.rabieta.network.ProductosNetworkClient
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.CompositeDisposable
@@ -22,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     private val compositeDisposable = CompositeDisposable()
 
     private lateinit var text : TextView
-
+    private lateinit var toolbar : Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +37,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupUI() {
-        text = findViewById(R.id.textjso)
+
+        //text = findViewById(R.id.textjso)
+        setupToolbar()
         retrieveProdApi()
+    }
+
+    private fun setupToolbar() {
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = getString(R.string.ToolbarTittle)
     }
 
     //Esto saca los productos desde la BBDD
@@ -76,5 +89,27 @@ class MainActivity : AppCompatActivity() {
                 Log.e("MainActivity", "Error al obtener los juegos nuevos", t)
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId){
+            R.id.it_settings -> launchSettings()
+            //R.id.it_aboutUs ->
+            //R.id.it_cam ->
+
+        }
+
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun launchSettings() {
+        val intent = Intent(this, PreferenceActivity::class.java)
+        startActivity(intent)
     }
 }
