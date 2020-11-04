@@ -3,6 +3,7 @@
     package="com.example.rabieta">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -14,6 +15,7 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".preferences.PreferenceActivity"></activity>
         <activity android:name=".RegisterActivity" />
+        <activity android:name=".QrActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".SplashScreenActivity">
             <intent-filter>
