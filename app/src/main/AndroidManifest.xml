@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".preferences.PreferenceActivity"></activity>
+        <activity android:name=".ProductoDetalleActivity"></activity>
+        <activity android:name=".preferences.PreferenceActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".QrActivity" />
         <activity android:name=".LoginActivity" />

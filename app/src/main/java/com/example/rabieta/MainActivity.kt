@@ -1,13 +1,17 @@
 package com.example.rabieta
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rabieta.db.ProductosRepository
 import com.example.rabieta.models.Producto
@@ -21,14 +25,22 @@ import retrofit2.Callback
 import retrofit2.Response
 import com.example.rabieta.adapter.ProductosAdapter
 import com.example.rabieta.adapter.ProductosListener
+import com.google.zxing.qrcode.encoder.QRCode
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class MainActivity : AppCompatActivity(), ProductosListener {
-
+    var i =""
     private lateinit var rvProductos : RecyclerView
     private val adapter  : ProductosAdapter by lazy { ProductosAdapter(this) }
     private val compositeDisposable = CompositeDisposable()
+    private val preferences: SharedPreferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(this)
+    }
 
     private lateinit var toolbar : Toolbar
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,15 +50,19 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     }
 
     private fun setupUI() {
-
-        setupToolbar()
-        rvProductos = findViewById(R.id.rvProductos)
-        rvProductos.adapter = adapter
         retrieveProdApi()
+        setupToolbar()
+        DarkModePref()
+        rvProductos = findViewById(R.id.rvProductos)
+
+        rvProductos.adapter = adapter
+
+
     }
 
     override fun onResume() {
         super.onResume()
+        DarkModePref()
         retrieveProdApi()
     }
 
@@ -54,6 +70,7 @@ class MainActivity : AppCompatActivity(), ProductosListener {
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = getString(R.string.ToolbarTittle)
+
     }
 
     //Esto saca los productos desde la BBDD
@@ -91,6 +108,7 @@ class MainActivity : AppCompatActivity(), ProductosListener {
             ) {
                 response.body()?.let { adapter.updateGames(it) }
 
+
             }
 
             override fun onFailure(call: Call<List<Producto>>, t: Throwable) {
@@ -109,10 +127,9 @@ class MainActivity : AppCompatActivity(), ProductosListener {
         when (item.itemId){
             R.id.it_settings -> launchSettings()
             //R.id.it_aboutUs ->
-            //R.id.it_cam ->
+            R.id.it_cam ->launchCamActivity()
 
         }
-
 
         return super.onOptionsItemSelected(item)
     }
@@ -124,6 +141,38 @@ class MainActivity : AppCompatActivity(), ProductosListener {
 
     override fun onProductoClicked(producto: Producto) {
         TODO("Not yet implemented")
+    }
+
+    private fun launchCamActivity() {
+        val intent = Intent(this, QrActivity::class.java)
+        startActivity(intent)
+    }
+
+   private fun DarkModePref() {
+        Single.fromCallable { preferences.getBoolean("swDarkMode", true) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : SingleObserver<Boolean>{
+                override fun onSubscribe(d: Disposable) {
+                    compositeDisposable.add(d)
+                }
+
+                override fun onSuccess(swDarkMode: Boolean) {
+                    if (swDarkMode) {
+                        AppCompatDelegate.setDefaultNightMode(
+                            AppCompatDelegate.MODE_NIGHT_YES);
+                    } else {
+                         AppCompatDelegate.setDefaultNightMode(
+                                AppCompatDelegate.MODE_NIGHT_NO);
+                    }
+                }
+
+                override fun onError(e: Throwable) {
+                    Log.i("MainActivity", "Error al obtener preferencias - shouldShowFabAdd", e)
+                }
+            })
+
 
     }
+
 }

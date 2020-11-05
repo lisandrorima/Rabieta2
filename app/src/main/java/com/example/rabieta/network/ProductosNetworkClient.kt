@@ -6,7 +6,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 object ProductosNetworkClient {
 
-    private const val BASE_URL = "http://demo6366239.mockable.io/"
+    private const val BASE_URL = "http://demo6366239.mockable.io"
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)

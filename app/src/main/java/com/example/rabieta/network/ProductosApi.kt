@@ -9,7 +9,7 @@ import retrofit2.http.POST
 
 interface ProductosApi {
 
-    @GET("productos")
+    @GET("/productos2")
     fun GetProductos(): Call<List<Producto>>
 
    // @GET("/favorite_games")

@@ -1,6 +1,7 @@
 package com.example.rabieta
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Toast
@@ -13,8 +14,9 @@ import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
 import kotlinx.android.synthetic.main.activity_qrscanner.*
-//import java.util.jar.Manifest
 
+//import java.util.jar.Manifest
+const val RESULTADO = "RESULTADO"
 
 class QrActivity : AppCompatActivity() {
     val CAMERA_PERM = 111
@@ -27,17 +29,24 @@ class QrActivity : AppCompatActivity() {
     }
 
     private fun setupUI() {
-        codeScanner = CodeScanner(this,scannerView)
-        codeScanner.camera = CodeScanner.CAMERA_BACK
+        codeScanner = CodeScanner(this, scannerView)
+        codeScanner.camera = CodeScanner.CAMERA_FRONT
         codeScanner.formats = CodeScanner.ALL_FORMATS
         codeScanner.autoFocusMode = AutoFocusMode.SAFE
         codeScanner.scanMode = ScanMode.SINGLE
-        codeScanner.isAutoFocusEnabled=true
-        codeScanner.isFlashEnabled=false
-        
-        codeScanner.decodeCallback = DecodeCallback{
+        codeScanner.isAutoFocusEnabled = true
+        codeScanner.isFlashEnabled = false
+
+        codeScanner.decodeCallback = DecodeCallback {
             runOnUiThread {
-                Toast.makeText(this, "Scan result: ${it.text} ", Toast.LENGTH_LONG).show()
+
+                if (it.toString().toIntOrNull() != null) {
+                    launchDetailActivity(it.toString())
+                } else {
+                    Toast.makeText(this, "Scan result: ${it.text} ", Toast.LENGTH_LONG).show()
+                }
+
+
             }
         }
 
@@ -50,10 +59,18 @@ class QrActivity : AppCompatActivity() {
         checkPermission()
     }
 
-    fun checkPermission(){
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)!=PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA),CAMERA_PERM)
-        }else{
+    fun checkPermission() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.CAMERA),
+                CAMERA_PERM
+            )
+        } else {
             codeScanner.startPreview()
         }
     }
@@ -64,10 +81,10 @@ class QrActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
 
-        if (requestCode ==CAMERA_PERM&&grantResults.isNotEmpty()&&grantResults[0]==PackageManager.PERMISSION_GRANTED){
+        if (requestCode == CAMERA_PERM && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             codeScanner.startPreview()
-        }else{
-            Toast.makeText(this,"No se puede activar hasta dar permisos",Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(this, "No se puede activar hasta dar permisos", Toast.LENGTH_LONG).show()
         }
 
     }
@@ -80,6 +97,13 @@ class QrActivity : AppCompatActivity() {
     override fun onPause() {
         codeScanner.releaseResources()
         super.onPause()
+    }
+
+    private fun launchDetailActivity(resultado: String) {
+        val intent = Intent(this, ProductoDetalleActivity::class.java)
+        intent.putExtra(RESULTADO, resultado)
+        startActivity(intent)
+
     }
 
 }
