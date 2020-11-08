@@ -31,15 +31,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class MainActivity : AppCompatActivity(), ProductosListener {
-    var i =""
-    private lateinit var rvProductos : RecyclerView
-    private val adapter  : ProductosAdapter by lazy { ProductosAdapter(this) }
+    var i = ""
+    private lateinit var rvProductos: RecyclerView
+    private val adapter: ProductosAdapter by lazy { ProductosAdapter(this) }
     private val compositeDisposable = CompositeDisposable()
     private val preferences: SharedPreferences by lazy {
         PreferenceManager.getDefaultSharedPreferences(this)
     }
-
-    private lateinit var toolbar : Toolbar
+    private lateinit var toolbar: Toolbar
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +53,6 @@ class MainActivity : AppCompatActivity(), ProductosListener {
         setupToolbar()
         DarkModePref()
         rvProductos = findViewById(R.id.rvProductos)
-
         rvProductos.adapter = adapter
 
 
@@ -85,9 +83,9 @@ class MainActivity : AppCompatActivity(), ProductosListener {
 
                 override fun onSuccess(productos: List<Producto>) {
                     //adapter.updateGames(games)
-                    var content =""
-                    for (producto in productos){
-                        content+= producto.Id.toString() + producto.Titulo
+                    var content = ""
+                    for (producto in productos) {
+                        content += producto.Id.toString() + producto.Titulo
                         //text.append(content)
 
                     }
@@ -100,21 +98,22 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     }
 
     private fun retrieveProdApi() {
-        ProductosNetworkClient.productosApi.GetProductos().enqueue(object : Callback<List<Producto>> {
+        ProductosNetworkClient.productosApi.GetProductos()
+            .enqueue(object : Callback<List<Producto>> {
 
-            override fun onResponse(
-                call: Call<List<Producto>>,
-                response: Response<List<Producto>>
-            ) {
-                response.body()?.let { adapter.updateGames(it) }
+                override fun onResponse(
+                    call: Call<List<Producto>>,
+                    response: Response<List<Producto>>
+                ) {
+                    response.body()?.let { adapter.updateGames(it) }
 
 
-            }
+                }
 
-            override fun onFailure(call: Call<List<Producto>>, t: Throwable) {
-                Log.e("MainActivity", "Error al obtener los juegos nuevos", t)
-            }
-        })
+                override fun onFailure(call: Call<List<Producto>>, t: Throwable) {
+                    Log.e("MainActivity", "Error al obtener los juegos nuevos", t)
+                }
+            })
     }
 
 
@@ -124,10 +123,10 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId){
+        when (item.itemId) {
             R.id.it_settings -> launchSettings()
             //R.id.it_aboutUs ->
-            R.id.it_cam ->launchCamActivity()
+            R.id.it_cam -> launchCamActivity()
 
         }
 
@@ -148,11 +147,11 @@ class MainActivity : AppCompatActivity(), ProductosListener {
         startActivity(intent)
     }
 
-   private fun DarkModePref() {
+    private fun DarkModePref() {
         Single.fromCallable { preferences.getBoolean("swDarkMode", true) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : SingleObserver<Boolean>{
+            .subscribe(object : SingleObserver<Boolean> {
                 override fun onSubscribe(d: Disposable) {
                     compositeDisposable.add(d)
                 }
@@ -160,10 +159,12 @@ class MainActivity : AppCompatActivity(), ProductosListener {
                 override fun onSuccess(swDarkMode: Boolean) {
                     if (swDarkMode) {
                         AppCompatDelegate.setDefaultNightMode(
-                            AppCompatDelegate.MODE_NIGHT_YES);
+                            AppCompatDelegate.MODE_NIGHT_YES
+                        );
                     } else {
-                         AppCompatDelegate.setDefaultNightMode(
-                                AppCompatDelegate.MODE_NIGHT_NO);
+                        AppCompatDelegate.setDefaultNightMode(
+                            AppCompatDelegate.MODE_NIGHT_NO
+                        );
                     }
                 }
 
@@ -171,8 +172,15 @@ class MainActivity : AppCompatActivity(), ProductosListener {
                     Log.i("MainActivity", "Error al obtener preferencias - shouldShowFabAdd", e)
                 }
             })
+    }
 
-
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        if (!preferences.getBoolean("swHideQr", false)) {
+            toolbar.getMenu().findItem(R.id.it_cam).setVisible(true)
+        } else {
+            toolbar.getMenu().findItem(R.id.it_cam).setVisible(false)
+        }
+        return super.onPrepareOptionsMenu(menu)
     }
 
 }
