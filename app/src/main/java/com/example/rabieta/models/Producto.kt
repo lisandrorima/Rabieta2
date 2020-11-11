@@ -11,7 +11,7 @@ import kotlinx.android.parcel.Parcelize
 @JsonClass(generateAdapter = true)
 @DatabaseTable(tableName = "Productos")
 class Producto(
-    @DatabaseField(id = true)
+    @DatabaseField
     val Id: Int,
     @DatabaseField
     val ImgResource: String,

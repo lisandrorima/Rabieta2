@@ -30,6 +30,8 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
+const val PRODUCTO_DETALLE = "productoDetalle"
+
 class MainActivity : AppCompatActivity(), ProductosListener {
     var i = ""
     private lateinit var rvProductos: RecyclerView
@@ -49,12 +51,13 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     }
 
     private fun setupUI() {
-        retrieveProdApi()
+
         setupToolbar()
         DarkModePref()
         rvProductos = findViewById(R.id.rvProductos)
         rvProductos.adapter = adapter
-
+        retrieveProdApi()
+        retrieveProductos()
 
     }
 
@@ -62,6 +65,7 @@ class MainActivity : AppCompatActivity(), ProductosListener {
         super.onResume()
         DarkModePref()
         retrieveProdApi()
+        retrieveProductos()
     }
 
     private fun setupToolbar() {
@@ -82,7 +86,7 @@ class MainActivity : AppCompatActivity(), ProductosListener {
                 }
 
                 override fun onSuccess(productos: List<Producto>) {
-                    //adapter.updateGames(games)
+                    adapter.updateGames(productos)
                     var content = ""
                     for (producto in productos) {
                         content += producto.Id.toString() + producto.Titulo
@@ -105,9 +109,13 @@ class MainActivity : AppCompatActivity(), ProductosListener {
                     call: Call<List<Producto>>,
                     response: Response<List<Producto>>
                 ) {
-                    response.body()?.let { adapter.updateGames(it) }
-
-
+                    response.body()?.let {
+                        for (prod in it) {
+                            ProductosRepository(this@MainActivity.applicationContext)
+                                .addProducto(prod)
+                        }
+                    }
+                    //adapter.updateGames(it) }  //no deberia actualizar la base de datos del menu??
                 }
 
                 override fun onFailure(call: Call<List<Producto>>, t: Throwable) {
@@ -139,7 +147,16 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     }
 
     override fun onProductoClicked(producto: Producto) {
-        TODO("Not yet implemented")
+        if (producto.Tipo == "Bebida")
+        {
+            startActivity(Intent(this,ProductoDetalleBebidaActivity::class.java)
+                .putExtra("producto", producto))
+        }
+        else
+        {
+            startActivity(Intent(this, ProductoDetalleActivity::class.java)
+                .putExtra("producto", producto))
+        }
     }
 
     private fun launchCamActivity() {
@@ -174,7 +191,7 @@ class MainActivity : AppCompatActivity(), ProductosListener {
             })
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {   //CONSULTAR!!!!
         if (!preferences.getBoolean("swHideQr", false)) {
             toolbar.getMenu().findItem(R.id.it_cam).setVisible(true)
         } else {

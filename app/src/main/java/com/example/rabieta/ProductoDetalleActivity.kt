@@ -19,13 +19,13 @@ class ProductoDetalleActivity : AppCompatActivity() {
         setContentView(R.layout.activity_producto_detalle)
         val bundle = intent.extras
         val resultado = bundle?.getString(RESULTADO)?.toInt() ?:0
-        setupUI(resultado)
+        //setupUI(resultado)
     }
 
     //con el resultado hacer un query by ID
     private fun setupUI(resultado: Any) {
-        txtResultado = findViewById(R.id.txtResultado)
-        txtResultado.setText(resultado.toString())
+        //txtResultado = findViewById(R.id.txtResultado)
+        //txtResultado.setText(resultado.toString())
     }
 
     private fun retrieveProductoByIDApi() {
