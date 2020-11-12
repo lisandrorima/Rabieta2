@@ -66,7 +66,7 @@ class ProductosAdapter(
 
     fun updateGames(productos: List<Producto>) {
         this.producto = productos
-        //notifyDataSetChanged()
+        notifyDataSetChanged()
     }
 
 }

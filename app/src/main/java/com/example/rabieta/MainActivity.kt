@@ -51,13 +51,13 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     }
 
     private fun setupUI() {
-
+        retrieveProdApi()
         setupToolbar()
         DarkModePref()
         rvProductos = findViewById(R.id.rvProductos)
         rvProductos.adapter = adapter
-        retrieveProdApi()
-        retrieveProductos()
+
+        //retrieveProductos()
 
     }
 
@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity(), ProductosListener {
         super.onResume()
         DarkModePref()
         retrieveProdApi()
-        retrieveProductos()
+        //retrieveProductos()
     }
 
     private fun setupToolbar() {
@@ -110,13 +110,14 @@ class MainActivity : AppCompatActivity(), ProductosListener {
                     response: Response<List<Producto>>
                 ) {
                     response.body()?.let {
-                        for (prod in it) {
-                            ProductosRepository(this@MainActivity.applicationContext)
-                                .addProducto(prod)
-                        }
-                    }
-                    //adapter.updateGames(it) }  //no deberia actualizar la base de datos del menu??
+                        /*     for (prod in it) {
+                                 ProductosRepository(this@MainActivity.applicationContext)
+                                     .addProducto(prod)
+                             }*/
+                        adapter.updateGames(it)
+                    }  //no deberia actualizar la base de datos del menu??
                 }
+
 
                 override fun onFailure(call: Call<List<Producto>>, t: Throwable) {
                     Log.e("MainActivity", "Error al obtener los juegos nuevos", t)
@@ -147,15 +148,16 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     }
 
     override fun onProductoClicked(producto: Producto) {
-        if (producto.Tipo == "Bebida")
-        {
-            startActivity(Intent(this,ProductoDetalleBebidaActivity::class.java)
-                .putExtra("producto", producto))
-        }
-        else
-        {
-            startActivity(Intent(this, ProductoDetalleActivity::class.java)
-                .putExtra("producto", producto))
+        if (producto.Tipo == "Bebida") {
+            startActivity(
+                Intent(this, ProductoDetalleBebidaActivity::class.java)
+                    .putExtra("producto", producto)
+            )
+        } else {
+            startActivity(
+                Intent(this, ProductoDetalleActivity::class.java)
+                    .putExtra("producto", producto)
+            )
         }
     }
 
