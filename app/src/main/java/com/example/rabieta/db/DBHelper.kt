@@ -2,6 +2,7 @@ package com.example.rabieta.db
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import com.example.rabieta.models.Orden
 import com.example.rabieta.models.Producto
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper
 import com.j256.ormlite.support.ConnectionSource
@@ -11,6 +12,7 @@ class DBHelper(context: Context) : OrmLiteSqliteOpenHelper(context, DB_NAME, nul
 
     override fun onCreate(database: SQLiteDatabase?, connectionSource: ConnectionSource?) {
         TableUtils.createTableIfNotExists(connectionSource, Producto::class.java)
+        TableUtils.createTableIfNotExists(connectionSource, Orden::class.java)
     }
 
     override fun onUpgrade(

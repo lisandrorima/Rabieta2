@@ -3,6 +3,7 @@ package com.example.rabieta
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
@@ -18,6 +19,8 @@ class ProductoDetalleActivity : AppCompatActivity() {
     private lateinit var txtPrecioFinalDetCom : TextView
     private lateinit var txtPrecioRealDetCom : TextView
     private lateinit var txtDescDetCom : TextView
+    private lateinit var txtCantOrdenComida : TextView
+    private lateinit var btnAddCart : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +37,8 @@ class ProductoDetalleActivity : AppCompatActivity() {
         txtPrecioFinalDetCom = findViewById(R.id.txtPrecioFinalComDet)
         txtPrecioRealDetCom = findViewById(R.id.txtPrecioRealComDet)
         txtDescDetCom = findViewById(R.id.txtDesComDet)
+        txtCantOrdenComida = findViewById(R.id.txtCantOrdenComida)
+        btnAddCart = findViewById(R.id.btnAgregarComida)
 
 
         Picasso.get().load(producto?.ImgResource.toString()).into(imgProducto)
@@ -41,6 +46,8 @@ class ProductoDetalleActivity : AppCompatActivity() {
         txtPrecioFinalDetCom.text = "$${producto?.PrecioPromo}"
         txtPrecioRealDetCom.text = "$${producto?.Precio}"
         txtDescDetCom.text = producto?.porcentDesc
+
+
     }
 
     private fun setupToolbar(titulo: String?) {

@@ -184,7 +184,7 @@ class MainActivity : AppCompatActivity(), ProductosListener {
             })
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {   //CONSULTAR!!!!
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {   //MODIFICAR CON INSTANCIA DE MENU!!!!
         if (!preferences.getBoolean("swHideQr", false)) {
             toolbar.getMenu().findItem(R.id.it_cam).setVisible(true)
         } else {
