@@ -110,15 +110,9 @@ class MainActivity : AppCompatActivity(), ProductosListener {
                     response: Response<List<Producto>>
                 ) {
                     response.body()?.let {
-                        /*     for (prod in it) {
-                                 ProductosRepository(this@MainActivity.applicationContext)
-                                     .addProducto(prod)
-                             }*/
                         adapter.updateGames(it)
-                    }  //no deberia actualizar la base de datos del menu??
+                    }
                 }
-
-
                 override fun onFailure(call: Call<List<Producto>>, t: Throwable) {
                     Log.e("MainActivity", "Error al obtener los juegos nuevos", t)
                 }
