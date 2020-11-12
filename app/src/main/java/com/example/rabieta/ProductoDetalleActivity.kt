@@ -1,5 +1,6 @@
 package com.example.rabieta
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
@@ -46,5 +47,10 @@ class ProductoDetalleActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.toolbarDetalleComida)
         setSupportActionBar(toolbar)
         supportActionBar?.title = titulo
+    }
+
+    override fun onBackPressed() {
+        startActivity(Intent(this,MainActivity::class.java))
+        super.onBackPressed()
     }
 }
