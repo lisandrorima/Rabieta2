@@ -7,7 +7,7 @@
     tools:context=".ProductoDetalleBebidaActivity">
 
     <include
-        android:id="@+id/include"
+        android:id="@+id/toolbarDetalleBebida"
         layout="@layout/toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -15,22 +15,22 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/imgProdDesc"
+        android:id="@+id/imgProductoDetalleBebida"
         android:layout_width="wrap_content"
         android:layout_height="300dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarDetalleBebida"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <TextView
-        android:id="@+id/txtDescLarga"
+        android:id="@+id/txtDescProductoBebida"
         android:layout_width="0dp"
         android:layout_height="130dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgProdDesc" />
+        app:layout_constraintTop_toBottomOf="@+id/imgProductoDetalleBebida" />
 
     <RadioGroup
         android:id="@+id/rgTamañoBebida"
@@ -41,7 +41,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.11"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescLarga"
+        app:layout_constraintTop_toBottomOf="@+id/txtDescProductoBebida"
         app:layout_constraintVertical_bias="0.19">
 
         <RadioButton
@@ -75,5 +75,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.71"
         app:layout_constraintStart_toEndOf="@+id/rgTamañoBebida"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescLarga" />
+        app:layout_constraintTop_toBottomOf="@+id/txtDescProductoBebida" />
 </androidx.constraintlayout.widget.ConstraintLayout>

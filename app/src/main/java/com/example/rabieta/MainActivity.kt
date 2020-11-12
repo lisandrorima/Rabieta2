@@ -56,16 +56,12 @@ class MainActivity : AppCompatActivity(), ProductosListener {
         DarkModePref()
         rvProductos = findViewById(R.id.rvProductos)
         rvProductos.adapter = adapter
-
-        //retrieveProductos()
-
     }
 
     override fun onResume() {
         super.onResume()
         DarkModePref()
         retrieveProdApi()
-        //retrieveProductos()
     }
 
     private fun setupToolbar() {
@@ -113,6 +109,7 @@ class MainActivity : AppCompatActivity(), ProductosListener {
                         adapter.updateGames(it)
                     }
                 }
+
                 override fun onFailure(call: Call<List<Producto>>, t: Throwable) {
                     Log.e("MainActivity", "Error al obtener los juegos nuevos", t)
                 }
@@ -145,12 +142,12 @@ class MainActivity : AppCompatActivity(), ProductosListener {
         if (producto.Tipo == "Bebida") {
             startActivity(
                 Intent(this, ProductoDetalleBebidaActivity::class.java)
-                    .putExtra("producto", producto)
+                    .putExtra(PRODUCTO_DETALLE, producto)
             )
         } else {
             startActivity(
                 Intent(this, ProductoDetalleActivity::class.java)
-                    .putExtra("producto", producto)
+                    .putExtra(PRODUCTO_DETALLE, producto)
             )
         }
     }

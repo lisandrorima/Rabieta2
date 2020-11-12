@@ -7,7 +7,7 @@
     tools:context=".ProductoDetalleActivity">
 
     <include
-        android:id="@+id/include2"
+        android:id="@+id/toolbarDetalleComida"
         layout="@layout/toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -16,31 +16,34 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/imgDetalleComida"
         android:layout_width="wrap_content"
         android:layout_height="300dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include2"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarDetalleComida"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/txtDetalleComida"
         android:layout_width="0dp"
         android:layout_height="130dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintTop_toBottomOf="@+id/imgDetalleComida" />
 
     <TextView
         android:id="@+id/txtAgregar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Adicionales"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/txtDetalleComida" />
 
     <CheckBox
         android:id="@+id/chkBakon"
@@ -51,7 +54,7 @@
         app:layout_constraintEnd_toEndOf="@+id/chkCheddar"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guidelineStart"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/txtDetalleComida" />
 
     <CheckBox
         android:id="@+id/chkCheddar"
@@ -90,5 +93,40 @@
         app:layout_constraintHorizontal_bias="0.71"
         app:layout_constraintStart_toEndOf="@+id/chkCheddar"
         app:layout_constraintTop_toBottomOf="@+id/txtAgregar" />
+
+    <TextView
+        android:id="@+id/txtPrecioFinalComDet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#C9CCCB"
+        android:text="TextView"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imgDetalleComida"
+        app:layout_constraintStart_toStartOf="@+id/guidelineStart" />
+
+    <TextView
+        android:id="@+id/txtPrecioRealComDet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="#C9CCCB"
+        android:text="TextView"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imgDetalleComida"
+        app:layout_constraintStart_toEndOf="@+id/txtPrecioFinalComDet" />
+
+    <TextView
+        android:id="@+id/txtDesComDet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="#4CAF50"
+        android:text="TextView"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imgDetalleComida"
+        app:layout_constraintStart_toEndOf="@+id/txtPrecioRealComDet" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

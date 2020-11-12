@@ -49,10 +49,10 @@ class ProductosAdapter(
 
             Picasso.get().load(producto[position].ImgResource.toString()).into(imgProducto)
             txtTituloProducto.text = producto[position].Titulo
-            txtPrecio.text = producto[position].Precio
+            txtPrecio.text = "$${producto[position].Precio}"
             txtDescCortaProd.text = producto[position].DescCorta
             txtDiscountPercentaje.text = producto[position].porcentDesc
-            txtPrecioDesc.text = producto[position].PrecioPromo
+            txtPrecioDesc.text = "$${producto[position].PrecioPromo}"
 
             itemView.setOnClickListener {
                 listener.onProductoClicked(producto[position])

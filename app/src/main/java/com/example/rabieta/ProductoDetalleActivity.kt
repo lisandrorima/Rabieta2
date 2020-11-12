@@ -2,47 +2,49 @@ package com.example.rabieta
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import com.example.rabieta.models.Producto
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import kotlin.math.round
+import com.squareup.picasso.Picasso
+
 
 class ProductoDetalleActivity : AppCompatActivity() {
 
-    private lateinit var txtResultado : TextView
+    private lateinit var toolbar: Toolbar
+    private lateinit var imgProducto: ImageView
+    private lateinit var txtDetalle: TextView
+    private lateinit var txtPrecioFinalDetCom : TextView
+    private lateinit var txtPrecioRealDetCom : TextView
+    private lateinit var txtDescDetCom : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_producto_detalle)
-        val bundle = intent.extras
-        val resultado = bundle?.getString(RESULTADO)?.toInt() ?:0
-        //setupUI(resultado)
+        val producto = intent.extras?.getParcelable<Producto>(PRODUCTO_DETALLE)
+        setupUI(producto)
     }
 
-    //con el resultado hacer un query by ID
-    private fun setupUI(resultado: Any) {
-        //txtResultado = findViewById(R.id.txtResultado)
-        //txtResultado.setText(resultado.toString())
+
+    private fun setupUI(producto: Producto?) {
+        setupToolbar(producto?.Titulo) ?: ""
+        imgProducto = findViewById(R.id.imgDetalleComida)
+        txtDetalle = findViewById(R.id.txtDetalleComida)
+        txtPrecioFinalDetCom = findViewById(R.id.txtPrecioFinalComDet)
+        txtPrecioRealDetCom = findViewById(R.id.txtPrecioRealComDet)
+        txtDescDetCom = findViewById(R.id.txtDesComDet)
+
+
+        Picasso.get().load(producto?.ImgResource.toString()).into(imgProducto)
+        txtDetalle.text = producto?.DescLarga
+        txtPrecioFinalDetCom.text = "$${producto?.PrecioPromo}"
+        txtPrecioRealDetCom.text = "$${producto?.Precio}"
+        txtDescDetCom.text = producto?.porcentDesc
     }
 
-    private fun retrieveProductoByIDApi() {
-        ProductosNetworkClient.productosApi.GetProductos().enqueue(object :
-            Callback<List<Producto>> {
-
-            override fun onResponse(
-                call: Call<List<Producto>>,
-                response: Response<List<Producto>>
-            ) {
-                //response.body()?.let { adapter.updateGames(it) }
-
-            }
-
-            override fun onFailure(call: Call<List<Producto>>, t: Throwable) {
-                Log.e("MainActivity", "Error al obtener los juegos nuevos", t)
-            }
-        })
+    private fun setupToolbar(titulo: String?) {
+        toolbar = findViewById(R.id.toolbarDetalleComida)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = titulo
     }
 }
