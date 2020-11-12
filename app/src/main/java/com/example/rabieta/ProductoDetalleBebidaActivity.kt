@@ -11,8 +11,12 @@ import com.squareup.picasso.Picasso
 class ProductoDetalleBebidaActivity : AppCompatActivity() {
 
     private lateinit var imgBebida : ImageView
-    private lateinit var txtDescBebida : TextView
+    private lateinit var txtDescripcionBebida : TextView
     private lateinit var toolbarBebida : Toolbar
+    private lateinit var txtPrecioRealBebida : TextView
+    private lateinit var txtPrecioFinalBebida : TextView
+    private lateinit var txtDescuentoBebida : TextView
+    private lateinit var txtCantOrdenBebida : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,11 +27,19 @@ class ProductoDetalleBebidaActivity : AppCompatActivity() {
 
     private fun setupUI(producto: Producto?) {
         setupToolbar(producto?.Titulo)?:""
-        txtDescBebida = findViewById(R.id.txtDescProductoBebida)
+        txtDescripcionBebida = findViewById(R.id.txtDescProductoBebida)
         imgBebida = findViewById(R.id.imgProductoDetalleBebida)
+        txtPrecioFinalBebida = findViewById(R.id.txtPrecioFinalBebida)
+        txtPrecioRealBebida = findViewById(R.id.txtPrecioRealBebida)
+        txtDescuentoBebida = findViewById(R.id.txtDescBebida)
+        txtCantOrdenBebida = findViewById(R.id.txtCantOrdenBebida)
+
 
         Picasso.get().load(producto?.ImgResource.toString()).into(imgBebida)
-        txtDescBebida.text= producto?.DescLarga
+        txtDescripcionBebida.text= producto?.DescLarga
+        txtPrecioRealBebida.text = "$${producto?.Precio}"
+        txtPrecioFinalBebida.text = "$${producto?.PrecioPromo}"
+        txtDescuentoBebida.text = producto?.porcentDesc
     }
 
     private fun setupToolbar(titulo: String?) {
