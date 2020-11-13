@@ -68,7 +68,7 @@
     </RadioGroup>
 
     <Button
-        android:id="@+id/btAddCart"
+        android:id="@+id/btnAgregarBebida"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Agregar al carrito"
@@ -124,7 +124,7 @@
         android:layout_width="96dp"
         android:layout_height="54dp"
         android:layout_marginEnd="60dp"
-        app:layout_constraintBottom_toTopOf="@+id/btAddCart"
+        app:layout_constraintBottom_toTopOf="@+id/btnAgregarBebida"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtDescProductoBebida"
         app:layout_constraintVertical_bias="0.444">

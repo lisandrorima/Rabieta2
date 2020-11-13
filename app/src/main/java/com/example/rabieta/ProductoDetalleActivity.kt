@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import com.example.rabieta.db.OrdenRepository
+import com.example.rabieta.models.Orden
 import com.example.rabieta.models.Producto
 import com.squareup.picasso.Picasso
 
@@ -47,7 +49,23 @@ class ProductoDetalleActivity : AppCompatActivity() {
         txtPrecioRealDetCom.text = "$${producto?.Precio}"
         txtDescDetCom.text = producto?.porcentDesc
 
+        btnAddCart.setOnClickListener {
+            if (ValidarCantidad()){
+                AgregarComidaAlCarro(producto)
+                finish()
+            }
+        }
+    }
 
+    private fun AgregarComidaAlCarro(producto: Producto?) {
+        var orden = Orden(producto)
+        orden.Cantidad = txtCantOrdenComida.text.toString()
+        orden.NotaAdicionales = ""
+        OrdenRepository(this@ProductoDetalleActivity.applicationContext).addOrden(orden)
+    }
+
+    private fun ValidarCantidad(): Boolean {
+        return (txtCantOrdenComida.text.toString().toInt() >= 1)
     }
 
     private fun setupToolbar(titulo: String?) {

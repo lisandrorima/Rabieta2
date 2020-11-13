@@ -8,16 +8,33 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @DatabaseTable(tableName = "Ordenes")
 class Orden(
-    @DatabaseField (id = true)
-    val Id : Int,
+    @DatabaseField(id = true)
+    val Id: Int?,
     @DatabaseField
-    val Cantidad : String,
+    var Cantidad: String,
     @DatabaseField
-    val ImgOrden : String,
+    var ImgOrden: String?,
     @DatabaseField
-    val Precio : String,
+    var Precio: String?,
     @DatabaseField
-    val Nota : String
-): Parcelable{
-    constructor(): this(0,"","","","")
+    val Titulo: String?,
+    @DatabaseField
+    val DescLarga: String?,
+    @DatabaseField
+    val PrecioPromo: String?,
+    @DatabaseField
+    val porcentDesc: String?,
+    @DatabaseField
+    val Tipo: String?,
+    @DatabaseField
+    var NotaAdicionales: String,
+) : Parcelable {
+    constructor() : this(null, "", "", "", "","","","","","")
+
+    constructor(producto: Producto?) : this(
+        null, "", producto?.ImgResource, producto?.PrecioPromo, producto?.Titulo
+        ,producto?.DescLarga,producto?.PrecioPromo,producto?.porcentDesc,producto?.Tipo,"")
+
+
+
 }
