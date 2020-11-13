@@ -6,7 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ConstrainLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="24dp">
 
 
     <ImageView
@@ -68,18 +69,6 @@
         app:layout_constraintStart_toEndOf="@+id/txtPrecioDesc"
         app:layout_constraintTop_toBottomOf="@+id/txtDescCortaProd"
         tools:text="22%" />
-
-    <Button
-        android:id="@+id/btnAgregar"
-        android:layout_width="112dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/rounded_button"
-        android:text="@string/add"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Agregar a carrito" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,8 +28,8 @@
 
     <TextView
         android:id="@+id/txtDetalleComida"
-        android:layout_width="0dp"
-        android:layout_height="130dp"
+        android:layout_width="413dp"
+        android:layout_height="79dp"
         android:padding="16dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"

@@ -18,9 +18,11 @@ class OrdenesAdapter(
     private var orden: List<Orden> = emptyList()
 
     class OrdenesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imgOrden = itemView.findViewById<ImageView>(R.id.imgProducto)
-        val txtTituloOrden: TextView = itemView.findViewById(R.id.txtTituloProducto)
-        val txtPrecio: TextView = itemView.findViewById(R.id.txtPrecio)
+        val imgOrdenOrd = itemView.findViewById<ImageView>(R.id.imgOrden)
+        val txtTituloOrden: TextView = itemView.findViewById(R.id.txtTituloOrden)
+        val txtPrecio: TextView = itemView.findViewById(R.id.txtPrecioUnit)
+        val txtCant: TextView = itemView.findViewById(R.id.txtcantidad)
+
 
     }
 
@@ -40,8 +42,9 @@ class OrdenesAdapter(
     override fun onBindViewHolder(holder: OrdenesViewHolder, position: Int) {
         holder.apply {
 
-            Picasso.get().load(orden[position].ImgOrden.toString()).into(imgOrden)
+            Picasso.get().load(orden[position].ImgOrden).into(imgOrdenOrd)
             txtTituloOrden.text = orden[position].Titulo
+            txtCant.text = orden[position].Cantidad
             txtPrecio.text = "$${orden[position].Precio}"
             //txtPrecioDesc.text = "$${orden[position].PrecioPromo}"
 

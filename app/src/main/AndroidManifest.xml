@@ -13,12 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ProductoDetalleBebidaActivity"></activity>
+        <activity android:name=".CarritoActiviity"></activity>
+        <activity android:name=".ProductoDetalleBebidaActivity" />
         <activity android:name=".ProductoDetalleActivity" />
         <activity android:name=".preferences.PreferenceActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".QrActivity" />
         <activity android:name=".LoginActivity" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +28,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

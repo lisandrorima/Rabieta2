@@ -3,8 +3,10 @@ package com.example.rabieta.models
 import android.os.Parcelable
 import com.j256.ormlite.field.DatabaseField
 import com.j256.ormlite.table.DatabaseTable
+import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
 
+@JsonClass(generateAdapter = true)
 @Parcelize
 @DatabaseTable(tableName = "Ordenes")
 class Orden(
@@ -27,7 +29,7 @@ class Orden(
     @DatabaseField
     val Tipo: String?,
     @DatabaseField
-    var NotaAdicionales: String,
+    var NotaAdicionales: String?,
 ) : Parcelable {
     constructor() : this(null, "", "", "", "","","","","","")
 

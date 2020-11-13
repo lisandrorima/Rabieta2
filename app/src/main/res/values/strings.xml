@@ -2,5 +2,11 @@
     <string name="app_name">Rabieta</string>
     <string name="add">Agregar producto</string>
     <string name="ImgDesc">Imagen del producto</string>
+    <string name="Modif">Modificar</string>
+    <string name="Elim">Eliminar</string>
+    <string name="Pinta">Pinta</string>
+    <string name="MediaPinta">Media Pinta</string>
+    <string name="Lata">Lata 430 ml</string>
     <string name="ToolbarTittle">Menú Rabioso</string>
+    <string name="ToolbarCarrito">Carrito de ordenes</string>
 </resources>

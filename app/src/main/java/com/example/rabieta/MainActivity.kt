@@ -7,8 +7,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.preference.PreferenceManager
@@ -25,7 +23,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import com.example.rabieta.adapter.ProductosAdapter
 import com.example.rabieta.adapter.ProductosListener
-import com.google.zxing.qrcode.encoder.QRCode
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -33,7 +30,7 @@ import io.reactivex.schedulers.Schedulers
 const val PRODUCTO_DETALLE = "productoDetalle"
 
 class MainActivity : AppCompatActivity(), ProductosListener {
-    var i = ""
+
     private lateinit var rvProductos: RecyclerView
     private val adapter: ProductosAdapter by lazy { ProductosAdapter(this) }
     private val compositeDisposable = CompositeDisposable()
@@ -71,31 +68,7 @@ class MainActivity : AppCompatActivity(), ProductosListener {
 
     }
 
-    //Esto saca los productos desde la BBDD
-    private fun retrieveProductos() {
-        ProductosRepository(this@MainActivity.applicationContext)
-            .getProducto()
-            .subscribe(object : SingleObserver<List<Producto>> {
 
-                override fun onSubscribe(d: Disposable) {
-                    compositeDisposable.add(d)
-                }
-
-                override fun onSuccess(productos: List<Producto>) {
-                    adapter.updateGames(productos)
-                    var content = ""
-                    for (producto in productos) {
-                        content += producto.Id.toString() + producto.Titulo
-                        //text.append(content)
-
-                    }
-                }
-
-                override fun onError(e: Throwable) {
-                    Log.i("MainActivity", "Error al obtener los juegos", e)
-                }
-            })
-    }
 
     private fun retrieveProdApi() {
         ProductosNetworkClient.productosApi.GetProductos()
@@ -111,7 +84,7 @@ class MainActivity : AppCompatActivity(), ProductosListener {
                 }
 
                 override fun onFailure(call: Call<List<Producto>>, t: Throwable) {
-                    Log.e("MainActivity", "Error al obtener los juegos nuevos", t)
+                    Log.e("MainActivity", "Error al obtener los productos", t)
                 }
             })
     }
@@ -127,10 +100,15 @@ class MainActivity : AppCompatActivity(), ProductosListener {
             R.id.it_settings -> launchSettings()
             //R.id.it_aboutUs ->
             R.id.it_cam -> launchCamActivity()
-
+            R.id.it_carrito->lauchCarritoActivity()
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun lauchCarritoActivity() {
+        val intent = Intent(this, CarritoActiviity::class.java)
+        startActivity(intent)
     }
 
     private fun launchSettings() {

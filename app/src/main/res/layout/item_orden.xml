@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="24dp">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineEnd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="128dp" />
+        app:layout_constraintGuide_begin="146dp" />
 
     <ImageView
         android:id="@+id/imgOrden"
@@ -28,48 +29,73 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="TextView"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imgOrden"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Titulo" />
 
     <TextView
         android:id="@+id/txtNotaAdicionalesOrden"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/imgOrden"
-        app:layout_constraintTop_toBottomOf="@+id/txtTituloOrden" />
+        app:layout_constraintTop_toBottomOf="@+id/txtTituloOrden"
+        tools:text="Notas adicionales" />
+
+    <TextView
+        android:id="@+id/txtPrecioUnit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/imgOrden"
+        app:layout_constraintTop_toBottomOf="@+id/txtNotaAdicionalesOrden"
+        tools:text="$100" />
+
+    <TextView
+        android:id="@+id/txtcantidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/txtPrecioUnit"
+        app:layout_constraintTop_toBottomOf="@+id/txtNotaAdicionalesOrden"
+        tools:text="2" />
 
     <Button
         android:id="@+id/btnModificarOrden"
         android:layout_width="96dp"
         android:layout_height="36dp"
         android:backgroundTint="#CDDC39"
-        android:text="Modificar"
+        android:text="@string/Modif"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/guidelineEnd"
         app:layout_constraintEnd_toStartOf="@+id/btnEliminarOrden"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/imgOrden"
-        app:layout_constraintTop_toBottomOf="@+id/txtNotaAdicionalesOrden" />
+        app:layout_constraintTop_toBottomOf="@+id/txtNotaAdicionalesOrden"
+        app:layout_constraintVertical_bias="0.756"
+        tools:text="Modificar" />
 
     <Button
         android:id="@+id/btnEliminarOrden"
         android:layout_width="96dp"
         android:layout_height="36dp"
         android:backgroundTint="#E91E63"
-        android:text="Eliminar"
+        android:text="@string/Elim"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/btnModificarOrden"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnModificarOrden"
-        app:layout_constraintTop_toTopOf="@+id/btnModificarOrden" />
+        app:layout_constraintTop_toTopOf="@+id/btnModificarOrden"
+        tools:text="Eliminar" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

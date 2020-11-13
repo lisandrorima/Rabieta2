@@ -18,11 +18,11 @@ class ProductoDetalleActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
     private lateinit var imgProducto: ImageView
     private lateinit var txtDetalle: TextView
-    private lateinit var txtPrecioFinalDetCom : TextView
-    private lateinit var txtPrecioRealDetCom : TextView
-    private lateinit var txtDescDetCom : TextView
-    private lateinit var txtCantOrdenComida : TextView
-    private lateinit var btnAddCart : Button
+    private lateinit var txtPrecioFinalDetCom: TextView
+    private lateinit var txtPrecioRealDetCom: TextView
+    private lateinit var txtDescDetCom: TextView
+    private lateinit var txtCantOrdenComida: TextView
+    private lateinit var btnAddCart: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,9 +50,9 @@ class ProductoDetalleActivity : AppCompatActivity() {
         txtDescDetCom.text = producto?.porcentDesc
 
         btnAddCart.setOnClickListener {
-            if (ValidarCantidad()){
+            if (ValidarCantidad()) {
                 AgregarComidaAlCarro(producto)
-                finish()
+                lauchCarritoActivity()
             }
         }
     }
@@ -75,7 +75,12 @@ class ProductoDetalleActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        startActivity(Intent(this,MainActivity::class.java))
+        startActivity(Intent(this, MainActivity::class.java))
         super.onBackPressed()
+    }
+
+    private fun lauchCarritoActivity() {
+        val intent = Intent(this, CarritoActiviity::class.java)
+        startActivity(intent)
     }
 }

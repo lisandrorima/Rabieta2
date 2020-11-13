@@ -4,19 +4,29 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
+import com.example.rabieta.models.Producto
+import io.reactivex.Single
+import io.reactivex.SingleObserver
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_qrscanner.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-//import java.util.jar.Manifest
-const val RESULTADO = "RESULTADO"
+
+//const val PRODUCTO_DETALLE = "productoDetalle"
 
 class QrActivity : AppCompatActivity() {
     val CAMERA_PERM = 111
@@ -30,7 +40,7 @@ class QrActivity : AppCompatActivity() {
 
     private fun setupUI() {
         codeScanner = CodeScanner(this, scannerView)
-        codeScanner.camera = CodeScanner.CAMERA_FRONT
+        codeScanner.camera = CodeScanner.CAMERA_BACK
         codeScanner.formats = CodeScanner.ALL_FORMATS
         codeScanner.autoFocusMode = AutoFocusMode.SAFE
         codeScanner.scanMode = ScanMode.SINGLE
@@ -41,7 +51,32 @@ class QrActivity : AppCompatActivity() {
             runOnUiThread {
 
                 if (it.toString().toIntOrNull() != null) {
-                    launchDetailActivity(it.toString())
+
+                    var prod= Producto()
+
+
+                    Log.i("act", "antes de traer prod")
+
+                    ProductosNetworkClient.productosApi.GetProductoByID(it.toString())
+                        .enqueue(object : Callback<Producto> {
+
+
+                            override fun onResponse(call: Call<Producto>, response: Response<Producto>) {
+                                Log.i("act", "response")
+                                response.body()?.let {
+                                    prod = it
+                                    launchDetailActivity(prod)
+                                }
+                            }
+
+                            override fun onFailure(call: Call<Producto>, t: Throwable) {
+                                Log.e("QR", "Error al obtener los juegos nuevos", t)
+                                Log.i("act", "fallo")
+                            }
+
+
+
+                        })
                 } else {
                     Toast.makeText(this, "Scan result: ${it.text} ", Toast.LENGTH_LONG).show()
                 }
@@ -99,11 +134,20 @@ class QrActivity : AppCompatActivity() {
         super.onPause()
     }
 
-    private fun launchDetailActivity(resultado: String) {
-        val intent = Intent(this, ProductoDetalleActivity::class.java)
-        intent.putExtra(RESULTADO, resultado)
-        startActivity(intent)
+    private fun launchDetailActivity(producto: Producto) {
+
+        if (producto.Tipo== "Bebida"){
+            val intent = Intent(this, ProductoDetalleBebidaActivity::class.java)
+            intent.putExtra(PRODUCTO_DETALLE, producto)
+            startActivity(intent)
+        }else{
+            val intent = Intent(this, ProductoDetalleActivity::class.java)
+            intent.putExtra(PRODUCTO_DETALLE, producto)
+            startActivity(intent)
+        }
+
 
     }
+
 
 }

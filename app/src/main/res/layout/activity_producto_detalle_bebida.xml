@@ -25,10 +25,9 @@
 
     <TextView
         android:id="@+id/txtDescProductoBebida"
-        android:layout_width="0dp"
-        android:layout_height="130dp"
+        android:layout_width="401dp"
+        android:layout_height="82dp"
         android:padding="16dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgProductoDetalleBebida" />
@@ -50,21 +49,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="Pinta" />
+            android:text="@string/Pinta"
+            tools:text="Pinta" />
 
         <RadioButton
             android:id="@+id/rbMediaPinta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="1/2 Pinta" />
+            android:text="@string/MediaPinta"
+            tools:text="Media pinta" />
 
         <RadioButton
             android:id="@+id/rbLata"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="Lata 430 ml" />
+            android:text="@string/Lata"
+            tools:text="Lata" />
     </RadioGroup>
 
     <Button

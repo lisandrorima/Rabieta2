@@ -1,5 +1,6 @@
 package com.example.rabieta
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -49,12 +50,13 @@ class ProductoDetalleBebidaActivity : AppCompatActivity() {
             if (VerificaCantidad()){
                 AgregarBebidaAlCarro(producto)
                 finish()
+                // lauchCarritoActivity()
             }
         }
     }
 
     private fun AgregarBebidaAlCarro(producto: Producto?) {
-        var orden = Orden()
+        var orden = Orden(producto)
         orden.Cantidad = txtCantOrdenBebida.text.toString()
         orden.NotaAdicionales = ""
         OrdenRepository(this@ProductoDetalleBebidaActivity.applicationContext).addOrden(orden)
@@ -68,5 +70,10 @@ class ProductoDetalleBebidaActivity : AppCompatActivity() {
         toolbarBebida = findViewById(R.id.toolbarDetalleBebida)
         setSupportActionBar(toolbarBebida)
         supportActionBar?.title = titulo
+    }
+
+    private fun lauchCarritoActivity() {
+        val intent = Intent(this, CarritoActiviity::class.java)
+        startActivity(intent)
     }
 }
