@@ -31,6 +31,7 @@ const val PRODUCTO_DETALLE = "productoDetalle"
 
 class MainActivity : AppCompatActivity(), ProductosListener {
 
+    private var menuMain : Menu? = null
     private lateinit var rvProductos: RecyclerView
     private val adapter: ProductosAdapter by lazy { ProductosAdapter(this) }
     private val compositeDisposable = CompositeDisposable()
@@ -58,6 +59,7 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     override fun onResume() {
         super.onResume()
         DarkModePref()
+        CamQRPref()
         retrieveProdApi()
     }
 
@@ -92,6 +94,7 @@ class MainActivity : AppCompatActivity(), ProductosListener {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
+        menuMain = menu
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -162,7 +165,37 @@ class MainActivity : AppCompatActivity(), ProductosListener {
             })
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {   //MODIFICAR CON INSTANCIA DE MENU!!!!
+
+     private fun CamQRPref() {
+        Single.fromCallable { preferences.getBoolean("swHideQr", false) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : SingleObserver<Boolean> {
+                override fun onSubscribe(d: Disposable) {
+                    compositeDisposable.add(d)
+                }
+
+                override fun onSuccess(swHideQr: Boolean) {
+                    if (swHideQr) {
+                        menuMain?.findItem(R.id.it_cam)?.isVisible = false
+
+                    } else {
+                        menuMain?.findItem(R.id.it_cam)?.isVisible = true
+                    }
+                }
+
+                override fun onError(e: Throwable) {
+                    Log.i("MainActivity", "Error al obtener preferencias - CamQRPref", e)
+                }
+            })
+    }
+
+
+
+
+
+
+    /*override fun onPrepareOptionsMenu(menu: Menu?): Boolean {   //MODIFICAR CON INSTANCIA DE MENU!!!!
         if (!preferences.getBoolean("swHideQr", false)) {
             toolbar.getMenu().findItem(R.id.it_cam).setVisible(true)
         } else {
@@ -170,5 +203,7 @@ class MainActivity : AppCompatActivity(), ProductosListener {
         }
         return super.onPrepareOptionsMenu(menu)
     }
+
+     */
 
 }
