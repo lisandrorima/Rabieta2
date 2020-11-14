@@ -23,7 +23,7 @@ class OrdenRepository (context: Context){
 
     fun deleteOrden(orden: Orden) = dao.delete(orden)
 
-    fun updateProducto(orden: Orden) = dao.update(orden)
+    fun updateOrden(orden: Orden) = dao.update(orden)
 
     fun getOrden(ordenId: Int) = dao.queryForId(ordenId)
 

@@ -138,13 +138,32 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
 
     }
 
-    override fun onModifyClicked(orden: Orden) {
-        startActivity(Intent(this, ProductoDetalleActivity::class.java))
+
+    override fun onAdd(orden: Orden) {
+        var actualizada :Int
+        actualizada = orden.Cantidad.toInt()
+        actualizada +=1
+
+        orden.Cantidad = actualizada.toString()
+        OrdenRepository(this).updateOrden(orden)
+        onResume()
     }
 
-    override fun onOrdenesClicked(orden: Orden) {
-        TODO("Not yet implemented")
+    override fun onRemove(orden: Orden) {
+        var actualizada :Int
+        if(orden.Cantidad.toInt() >1){
+            actualizada = orden.Cantidad.toInt()
+            actualizada -=1
+
+            orden.Cantidad = actualizada.toString()
+            OrdenRepository(this).updateOrden(orden)
+        }else{
+            onDeleteClicked(orden)
+        }
+        onResume()
     }
+
+
 
 
     private fun showNotification() {

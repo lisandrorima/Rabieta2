@@ -24,9 +24,10 @@ class OrdenesAdapter(
         val txtTituloOrden: TextView = itemView.findViewById(R.id.txtTituloOrden)
         val txtPrecio: TextView = itemView.findViewById(R.id.txtPrecioUnit)
         val txtCant: TextView = itemView.findViewById(R.id.txtcantidad)
-        //val txtNotaAdicionalesOrden : TextView = itemView.findViewById(R.id.txtNotaAdicionalesOrden)
-        val btnModificarOrden :Button = itemView.findViewById(R.id.btnModificarOrden)
         val btnEliminarOrden : Button = itemView.findViewById(R.id.btnEliminarOrden)
+        val btnadd : Button = itemView.findViewById(R.id.btnAgregarUnidad)
+        val btnQuitar : Button = itemView.findViewById(R.id.btnQuitarUnidad)
+        val txtNotas : TextView = itemView.findViewById(R.id.txtNotaAdicionalesOrden)
 
         override fun onClick(v: View?) {
             when (v?.id){
@@ -57,16 +58,19 @@ class OrdenesAdapter(
             txtTituloOrden.text = orden[position].Titulo
             txtCant.text = orden[position].Cantidad
             txtPrecio.text = "$${orden[position].Precio}"
-            //txtNotaAdicionalesOrden.text = orden[position].NotaAdicionales
+            txtNotas.text = orden[position].NotaAdicionales
             btnEliminarOrden.setOnClickListener {
                 listener.onDeleteClicked(orden[position])
             }
-            btnModificarOrden.setOnClickListener {
-                listener.onModifyClicked(orden[position])
-            }
 
-            itemView.setOnClickListener {
-                listener.onOrdenesClicked(orden[position])
+
+
+
+            btnQuitar.setOnClickListener {
+                listener.onRemove(orden[position])
+            }
+            btnadd.setOnClickListener {
+                listener.onAdd(orden[position])
             }
         }
     }
@@ -81,9 +85,10 @@ class OrdenesAdapter(
     }
 
     interface OrdenesListener {
-        fun onOrdenesClicked(orden: Orden)
         fun onDeleteClicked(orden: Orden)
-        fun onModifyClicked(orden: Orden)
+        fun onAdd(orden: Orden)
+        fun onRemove(orden: Orden)
+
     }
 
 }

@@ -52,7 +52,6 @@ class QrActivity : AppCompatActivity() {
 
                 if (it.toString().toIntOrNull() != null) {
 
-                    var prod= Producto()
 
 
                     Log.i("act", "antes de traer prod")
@@ -64,8 +63,8 @@ class QrActivity : AppCompatActivity() {
                             override fun onResponse(call: Call<Producto>, response: Response<Producto>) {
                                 Log.i("act", "response")
                                 response.body()?.let {
-                                    prod = it
-                                    launchDetailActivity(prod)
+
+                                    launchDetailActivity(it)
                                 }
                             }
 

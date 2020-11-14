@@ -73,7 +73,7 @@
         android:id="@+id/btnAgregarBebida"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Agregar al carrito"
+        android:text="@string/add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.71"
@@ -92,11 +92,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#C9CCCB"
-        android:text="TextView"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imgProductoDetalleBebida"
-        app:layout_constraintStart_toStartOf="@+id/guidelineStartBebida" />
+        app:layout_constraintStart_toStartOf="@+id/guidelineStartBebida"
+        tools:text="$100" />
 
     <TextView
         android:id="@+id/txtPrecioRealBebida"
@@ -104,11 +104,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:background="#C9CCCB"
-        android:text="TextView"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imgProductoDetalleBebida"
-        app:layout_constraintStart_toEndOf="@+id/txtPrecioFinalBebida" />
+        app:layout_constraintStart_toEndOf="@+id/txtPrecioFinalBebida"
+        tools:text="$100" />
 
     <TextView
         android:id="@+id/txtDescBebida"
@@ -116,11 +116,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:background="#4CAF50"
-        android:text="TextView"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imgProductoDetalleBebida"
-        app:layout_constraintStart_toEndOf="@+id/txtPrecioRealBebida" />
+        app:layout_constraintStart_toEndOf="@+id/txtPrecioRealBebida"
+        tools:text="0%" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="96dp"
@@ -135,11 +135,12 @@
             android:id="@+id/txtCantOrdenBebida"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Cant"
+            android:hint="@string/hintDefecto"
             android:inputType="number"
             android:selectAllOnFocus="true"
             android:singleLine="true"
-            android:text="1"
-            android:textAlignment="center" />
+            android:text="@string/CantDefecto"
+            android:textAlignment="center"
+            tools:text="1" />
     </com.google.android.material.textfield.TextInputLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
