@@ -24,20 +24,14 @@ class OrdenesAdapter(
         val txtTituloOrden: TextView = itemView.findViewById(R.id.txtTituloOrden)
         val txtPrecio: TextView = itemView.findViewById(R.id.txtPrecioUnit)
         val txtCant: TextView = itemView.findViewById(R.id.txtcantidad)
-        val btnEliminarOrden : Button = itemView.findViewById(R.id.btnEliminarOrden)
-        val btnadd : Button = itemView.findViewById(R.id.btnAgregarUnidad)
-        val btnQuitar : Button = itemView.findViewById(R.id.btnQuitarUnidad)
-        val txtNotas : TextView = itemView.findViewById(R.id.txtNotaAdicionalesOrden)
+        val btnEliminarOrden: Button = itemView.findViewById(R.id.btnEliminarOrden)
+        val btnadd: Button = itemView.findViewById(R.id.btnAgregarUnidad)
+        val btnQuitar: Button = itemView.findViewById(R.id.btnQuitarUnidad)
+        val txtNotas: TextView = itemView.findViewById(R.id.txtNotaAdicionalesOrden)
 
         override fun onClick(v: View?) {
-            when (v?.id){
-
-            }
         }
-
-
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrdenesViewHolder {
         val itemView = LayoutInflater
@@ -47,7 +41,6 @@ class OrdenesAdapter(
                 parent,
                 false
             )
-
         return OrdenesViewHolder(itemView)
     }
 
@@ -62,10 +55,6 @@ class OrdenesAdapter(
             btnEliminarOrden.setOnClickListener {
                 listener.onDeleteClicked(orden[position])
             }
-
-
-
-
             btnQuitar.setOnClickListener {
                 listener.onRemove(orden[position])
             }
@@ -90,5 +79,4 @@ class OrdenesAdapter(
         fun onRemove(orden: Orden)
 
     }
-
 }
