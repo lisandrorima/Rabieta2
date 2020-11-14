@@ -1,6 +1,7 @@
 package com.example.rabieta
 
 import android.R.attr.data
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -10,10 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rabieta.adapter.OrdenesAdapter
 import com.example.rabieta.db.OrdenRepository
 import com.example.rabieta.models.Orden
-import com.example.rabieta.models.Producto
 import com.example.rabieta.network.OrdenesNetworkClient
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.squareup.moshi.Json
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import io.reactivex.SingleObserver
@@ -23,10 +22,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
-import javax.security.auth.callback.Callback
 
 
 class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
@@ -53,11 +50,10 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
         rvOrdenes = findViewById(R.id.rvOrdenes)
         rvOrdenes.adapter = adapter
         fabAdd.setOnClickListener { post(ordenessend) }
+
     }
 
-
-
-   private fun post(ordenes : List<Orden>){
+    private fun post(ordenes : List<Orden>){
         OrdenesNetworkClient.ordenesApi.enviarOrden(ordenes).enqueue(object : retrofit2.Callback<List<Orden>>{
 
             override fun onResponse(call: Call<List<Orden>>, response: Response<List<Orden>>) {
@@ -78,6 +74,12 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
 
     }
 
+    override fun onResume() {
+        retrieveOrdenes()
+        super.onResume()
+    }
+
+
     private fun retrieveOrdenes() {
 
         OrdenRepository(this)
@@ -97,11 +99,22 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
                 override fun onSuccess(ordenes: List<Orden>) {
                     adapter.updateOrdenes(ordenes)
                     ordenessend=ordenes
+
                 }
 
             })
+
     }
 
+
+    override fun onDeleteClicked(orden: Orden) {
+        OrdenRepository(this@CarritoActiviity.applicationContext).deleteOrden(orden)
+        onResume()
+    }
+
+    override fun onModifyClicked(orden: Orden) {
+        startActivity(Intent(this,ProductoDetalleActivity::class.java))
+    }
 
     override fun onOrdenesClicked(orden: Orden) {
         TODO("Not yet implemented")
