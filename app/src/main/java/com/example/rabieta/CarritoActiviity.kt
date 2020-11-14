@@ -10,7 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rabieta.adapter.OrdenesAdapter
 import com.example.rabieta.db.OrdenRepository
 import com.example.rabieta.models.Orden
+import com.example.rabieta.models.Producto
+import com.example.rabieta.network.OrdenesNetworkClient
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.squareup.moshi.Json
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import io.reactivex.SingleObserver
@@ -20,6 +23,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Response
+import javax.security.auth.callback.Callback
 
 
 class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
@@ -41,30 +48,27 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
     private fun setupUI() {
         coordinatorLayout = findViewById(R.id.coordinatorLayout)
         fabAdd = findViewById(R.id.floatingActionButton)
-       // ordenessend = retrieveOrdenes()
-
-        GlobalScope.launch(Dispatchers.Main) {
-            ordenessend = withContext(Dispatchers.Default) {
-                retrieveOrdenes()
-            }
-        }
-        fabAdd.setOnClickListener { Ordenar(ordenessend) }
+        retrieveOrdenes()
         setupToolbar()
         rvOrdenes = findViewById(R.id.rvOrdenes)
         rvOrdenes.adapter = adapter
-
+        fabAdd.setOnClickListener { post(ordenessend) }
     }
 
-    private fun Ordenar(ordenes: List<Orden>) {
-        val moshi = Moshi.Builder().build()
-        val jsonAdapter = moshi.adapter<List<Orden>>(
-            MutableList::class.java
-        )
-        val jsonStringFromObject =
-            jsonAdapter.toJson(List(ordenes.size) { ordenes.first() })
 
-        OrdenesNetworkClient.ordenesApi.EnviarOrden(jsonStringFromObject)
 
+   private fun post(ordenes : List<Orden>){
+        OrdenesNetworkClient.ordenesApi.enviarOrden(ordenes).enqueue(object : retrofit2.Callback<List<Orden>>{
+
+            override fun onResponse(call: Call<List<Orden>>, response: Response<List<Orden>>) {
+                response.body()
+            }
+
+            override fun onFailure(call: Call<List<Orden>>, t: Throwable) {
+                Log.e("Carrito", "Error al mandar la info", t)
+            }
+
+        })
     }
 
     private fun setupToolbar() {
@@ -74,8 +78,8 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
 
     }
 
-    private fun retrieveOrdenes(): List<Orden> {
-        var list = listOf<Orden>()
+    private fun retrieveOrdenes() {
+
         OrdenRepository(this)
             .getOrdenes()
             .subscribe(object : SingleObserver<List<Orden>> {
@@ -91,13 +95,11 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
                 }
 
                 override fun onSuccess(ordenes: List<Orden>) {
-                    list = ordenes
                     adapter.updateOrdenes(ordenes)
-
+                    ordenessend=ordenes
                 }
 
             })
-        return list
     }
 
 

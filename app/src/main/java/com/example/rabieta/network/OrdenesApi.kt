@@ -1,17 +1,19 @@
 package com.example.rabieta.network
 
 import com.example.rabieta.models.Orden
-import com.example.rabieta.models.Producto
 import com.squareup.moshi.Json
-import io.reactivex.Single
 import retrofit2.Call
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.Headers
+import retrofit2.http.POST
+
 
 interface OrdenesApi {
 
 
-    @POST("/ordenes")
-    fun EnviarOrden(
-         @Body orden: String
-    ):Call<List<Orden>>
+    @Headers("Content-Type: application/json")
+    @POST("/orden")
+    fun enviarOrden(@Body body: List<Orden>) : Call<List<Orden>>
+
 }
