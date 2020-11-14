@@ -23,7 +23,6 @@ class AboutUsActivity : AppCompatActivity() {
         txtTitulo = findViewById(R.id.txtTituloAboutUs)
         txtDescripcionAbouUs = findViewById(R.id.txtDescripcionAboutUs)
 
-        txtTitulo.text = getString(R.string.TituloAboutUs)
         txtDescripcionAbouUs.text = getString(R.string.DescripcionAus)
     }
 

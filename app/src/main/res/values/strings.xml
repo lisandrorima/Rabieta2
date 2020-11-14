@@ -10,7 +10,9 @@
     <string name="ToolbarTittle">Menú Rabioso</string>
     <string name="ToolbarCarrito">Carrito de ordenes</string>
     <string name="ToolbarAboutUs">About Us</string>
-    <string name= "TituloAboutUs">#UnaCervezaCaprichosa</string>
+    <string name= "CantDefecto">1</string>
+    <string name= "hintDefecto">Ingrese cantidad</string>
+    <string name= "TituloAbout">Una cerveza diferente</string>
     <string name="DescripcionAus">Desde el origen hasta la canilla. Nos mueve una idea de artesanal que representa
                                     un espíritu nuevo y leal a lo que cree: lo industrial está bien, para los otros.
                                     Esto es otra cosa, lo que hacemos es distinto. Y es un camino de ida. </string>

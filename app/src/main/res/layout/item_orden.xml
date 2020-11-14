@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="146dp" />
+        app:layout_constraintGuide_begin="185dp" />
 
     <ImageView
         android:id="@+id/imgOrden"
@@ -54,48 +54,59 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="28dp"
         app:layout_constraintStart_toEndOf="@+id/imgOrden"
         app:layout_constraintTop_toBottomOf="@+id/txtNotaAdicionalesOrden"
         tools:text="$100" />
 
     <TextView
         android:id="@+id/txtcantidad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="16dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="28dp"
         app:layout_constraintStart_toEndOf="@+id/txtPrecioUnit"
         app:layout_constraintTop_toBottomOf="@+id/txtNotaAdicionalesOrden"
         tools:text="2" />
 
     <Button
-        android:id="@+id/btnModificarOrden"
-        android:layout_width="96dp"
-        android:layout_height="36dp"
-        android:backgroundTint="#CDDC39"
-        android:text="@string/Modif"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineEnd"
-        app:layout_constraintEnd_toStartOf="@+id/btnEliminarOrden"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imgOrden"
-        app:layout_constraintTop_toBottomOf="@+id/txtNotaAdicionalesOrden"
-        app:layout_constraintVertical_bias="0.756"
-        tools:text="Modificar" />
-
-    <Button
         android:id="@+id/btnEliminarOrden"
         android:layout_width="96dp"
         android:layout_height="36dp"
+        android:layout_marginTop="76dp"
         android:backgroundTint="#E91E63"
         android:text="@string/Elim"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/btnModificarOrden"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnModificarOrden"
-        app:layout_constraintTop_toTopOf="@+id/btnModificarOrden"
+        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintStart_toEndOf="@+id/imgOrden"
+        app:layout_constraintTop_toBottomOf="@+id/txtNotaAdicionalesOrden"
         tools:text="Eliminar" />
+
+    <Button
+        android:id="@+id/btnAgregarUnidad"
+        android:layout_width="32dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/ic_add"
+        app:layout_constraintBottom_toTopOf="@+id/btnEliminarOrden"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.594"
+        app:layout_constraintStart_toEndOf="@+id/txtcantidad"
+        app:layout_constraintTop_toBottomOf="@+id/txtNotaAdicionalesOrden"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/btnQuitarUnidad"
+        android:layout_width="32dp"
+        android:layout_height="30dp"
+        android:background="@drawable/ic_baseline_remove_24"
+        app:layout_constraintBottom_toTopOf="@+id/btnEliminarOrden"
+        app:layout_constraintEnd_toStartOf="@+id/txtcantidad"
+        app:layout_constraintHorizontal_bias="0.583"
+        app:layout_constraintStart_toEndOf="@+id/txtPrecioUnit"
+        app:layout_constraintTop_toBottomOf="@+id/txtNotaAdicionalesOrden"
+        app:layout_constraintVertical_bias="0.574" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
