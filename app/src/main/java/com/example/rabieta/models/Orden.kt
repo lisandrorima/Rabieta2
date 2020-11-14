@@ -23,7 +23,7 @@ class Orden(
     @DatabaseField
     val DescLarga: String?,
     @DatabaseField
-    val PrecioPromo: String?,
+    var PrecioPromo: String?,
     @DatabaseField
     val porcentDesc: String?,
     @DatabaseField

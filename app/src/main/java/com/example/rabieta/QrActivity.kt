@@ -26,7 +26,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-
 class QrActivity : AppCompatActivity() {
     val CAMERA_PERM = 111
     lateinit var codeScanner: CodeScanner
@@ -52,14 +51,16 @@ class QrActivity : AppCompatActivity() {
                 if (it.toString().toIntOrNull() != null) {
 
 
-
                     Log.i("act", "antes de traer prod")
 
                     ProductosNetworkClient.productosApi.GetProductoByID(it.toString())
                         .enqueue(object : Callback<Producto> {
 
 
-                            override fun onResponse(call: Call<Producto>, response: Response<Producto>) {
+                            override fun onResponse(
+                                call: Call<Producto>,
+                                response: Response<Producto>
+                            ) {
                                 Log.i("act", "response")
                                 response.body()?.let {
 
@@ -71,7 +72,6 @@ class QrActivity : AppCompatActivity() {
                                 Log.e("QR", "Error al obtener los juegos nuevos", t)
                                 Log.i("act", "fallo")
                             }
-
 
 
                         })
@@ -134,18 +134,16 @@ class QrActivity : AppCompatActivity() {
 
     private fun launchDetailActivity(producto: Producto) {
 
-        if (producto.Tipo== "Bebida"){
+        if (producto.Tipo == "Bebida") {
             val intent = Intent(this, ProductoDetalleBebidaActivity::class.java)
             intent.putExtra(PRODUCTO_DETALLE, producto)
             startActivity(intent)
-            finish()
-        }else{
+        } else {
             val intent = Intent(this, ProductoDetalleActivity::class.java)
             intent.putExtra(PRODUCTO_DETALLE, producto)
             startActivity(intent)
-            finish()
         }
-
+        finish()
 
     }
 

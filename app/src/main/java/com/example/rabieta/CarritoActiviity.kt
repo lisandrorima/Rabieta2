@@ -69,7 +69,7 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
                         OrdenRepository(this@CarritoActiviity.applicationContext).deleteOrden(orden)
                     }
                     showNotification()
-                    lauchMainActivity()
+                    finish()
                 }
 
                 override fun onFailure(call: Call<List<Orden>>, t: Throwable) {
@@ -140,9 +140,9 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
 
 
     override fun onAdd(orden: Orden) {
-        var actualizada :Int
+        var actualizada: Int
         actualizada = orden.Cantidad.toInt()
-        actualizada +=1
+        actualizada += 1
 
         orden.Cantidad = actualizada.toString()
         OrdenRepository(this).updateOrden(orden)
@@ -150,26 +150,24 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
     }
 
     override fun onRemove(orden: Orden) {
-        var actualizada :Int
-        if(orden.Cantidad.toInt() >1){
+        var actualizada: Int
+        if (orden.Cantidad.toInt() > 1) {
             actualizada = orden.Cantidad.toInt()
-            actualizada -=1
+            actualizada -= 1
 
             orden.Cantidad = actualizada.toString()
             OrdenRepository(this).updateOrden(orden)
-        }else{
+        } else {
             onDeleteClicked(orden)
         }
         onResume()
     }
 
 
-
-
     private fun showNotification() {
         OrdenNotifChannelManager.createNotificationChannelForOrden(this)
 
-        val intent = Intent(this, CarritoActiviity::class.java).apply {
+        val intent = Intent(this, MainActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             putExtra(NOTIF_ORDEN_KEY, "Notificacion")
         }
@@ -188,11 +186,6 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
                     .from(this)
                     .notify(1, notification)
             }
-    }
-
-    private fun lauchMainActivity() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
     }
 }
 

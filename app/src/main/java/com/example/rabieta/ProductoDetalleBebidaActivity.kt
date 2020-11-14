@@ -15,15 +15,15 @@ import com.squareup.picasso.Picasso
 
 class ProductoDetalleBebidaActivity : AppCompatActivity() {
 
-    private lateinit var imgBebida : ImageView
-    private lateinit var txtDescripcionBebida : TextView
-    private lateinit var toolbarBebida : Toolbar
-    private lateinit var txtPrecioRealBebida : TextView
-    private lateinit var txtPrecioFinalBebida : TextView
-    private lateinit var txtDescuentoBebida : TextView
-    private lateinit var txtCantOrdenBebida : TextView
-    private lateinit var btnAgregarBebida : Button
-    private lateinit var rgTamaño :RadioGroup
+    private lateinit var imgBebida: ImageView
+    private lateinit var txtDescripcionBebida: TextView
+    private lateinit var toolbarBebida: Toolbar
+    private lateinit var txtPrecioRealBebida: TextView
+    private lateinit var txtPrecioFinalBebida: TextView
+    private lateinit var txtDescuentoBebida: TextView
+    private lateinit var txtCantOrdenBebida: TextView
+    private lateinit var btnAgregarBebida: Button
+    private lateinit var rgTamaño: RadioGroup
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +34,7 @@ class ProductoDetalleBebidaActivity : AppCompatActivity() {
     }
 
     private fun setupUI(producto: Producto?) {
-        setupToolbar(producto?.Titulo)?:""
+        setupToolbar(producto?.Titulo) ?: ""
         txtDescripcionBebida = findViewById(R.id.txtDescProductoBebida)
         imgBebida = findViewById(R.id.imgProductoDetalleBebida)
         txtPrecioFinalBebida = findViewById(R.id.txtPrecioFinalBebida)
@@ -46,32 +46,30 @@ class ProductoDetalleBebidaActivity : AppCompatActivity() {
 
 
         Picasso.get().load(producto?.ImgResource.toString()).into(imgBebida)
-        txtDescripcionBebida.text= producto?.DescLarga
+        txtDescripcionBebida.text = producto?.DescLarga
         txtPrecioRealBebida.text = "$${producto?.Precio}"
         txtPrecioFinalBebida.text = "$${producto?.PrecioPromo}"
         txtDescuentoBebida.text = producto?.porcentDesc
 
         btnAgregarBebida.setOnClickListener {
-            if (VerificaCantidad()){
+            if (VerificaCantidad()) {
                 AgregarBebidaAlCarro(producto)
-                lauchMainActivity()
+                finish()
             }
         }
     }
 
+    private fun getRadioButon(checkedID: Int): String {
 
-
-    private fun getRadioButon(checkedID: Int) : String {
-
-        var nota =""
-        if (checkedID==R.id.rbLata){
-            nota= "LATA"
+        var nota = ""
+        if (checkedID == R.id.rbLata) {
+            nota = "LATA"
         }
-        if (checkedID==R.id.rbMediaPinta){
-            nota= "MEDIA PINTA"
+        if (checkedID == R.id.rbMediaPinta) {
+            nota = "MEDIA PINTA"
         }
-        if (checkedID==R.id.rbPinta){
-            nota= "PINTA"
+        if (checkedID == R.id.rbPinta) {
+            nota = "PINTA"
         }
         return nota
     }
@@ -92,10 +90,5 @@ class ProductoDetalleBebidaActivity : AppCompatActivity() {
         toolbarBebida = findViewById(R.id.toolbarDetalleBebida)
         setSupportActionBar(toolbarBebida)
         supportActionBar?.title = titulo
-    }
-
-    private fun lauchMainActivity() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
     }
 }

@@ -81,29 +81,22 @@ class ProductoDetalleActivity : AppCompatActivity() {
         supportActionBar?.title = titulo
     }
 
-    override fun onBackPressed() {
-        //startActivity(Intent(this, MainActivity::class.java))
-        finish()
-        super.onBackPressed()
-    }
-
     private fun lauchMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
 
-    fun checkbox_clicked() : String{
-        var notas =""
+    fun checkbox_clicked(): String {
+        var notas = ""
         if (cbBacon.isChecked()) {
-            notas +="Bacon, "
+            notas += "Bacon, "
         }
-        if(cbChedar.isChecked()){
-            notas +="Cheddar, "
+        if (cbChedar.isChecked()) {
+            notas += "Cheddar, "
         }
-        if(cbSinAderezos.isChecked()){
-            notas +=" Sin Aderezos"
+        if (cbSinAderezos.isChecked()) {
+            notas += " Sin Aderezos"
         }
-
         return notas
     }
 }

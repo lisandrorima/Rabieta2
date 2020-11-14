@@ -50,7 +50,7 @@ class OrdenesAdapter(
             Picasso.get().load(orden[position].ImgOrden).into(imgOrdenOrd)
             txtTituloOrden.text = orden[position].Titulo
             txtCant.text = orden[position].Cantidad
-            txtPrecio.text = "$${orden[position].Precio}"
+            txtPrecio.text = "$${((orden[position].PrecioPromo?.toInt() ?: 0) * orden[position].Cantidad.toInt()).toString()}"
             txtNotas.text = orden[position].NotaAdicionales
             btnEliminarOrden.setOnClickListener {
                 listener.onDeleteClicked(orden[position])
