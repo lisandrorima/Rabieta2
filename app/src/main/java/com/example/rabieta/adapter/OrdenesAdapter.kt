@@ -24,6 +24,7 @@ class OrdenesAdapter(
         val txtTituloOrden: TextView = itemView.findViewById(R.id.txtTituloOrden)
         val txtPrecio: TextView = itemView.findViewById(R.id.txtPrecioUnit)
         val txtCant: TextView = itemView.findViewById(R.id.txtcantidad)
+        //val txtNotaAdicionalesOrden : TextView = itemView.findViewById(R.id.txtNotaAdicionalesOrden)
         val btnModificarOrden :Button = itemView.findViewById(R.id.btnModificarOrden)
         val btnEliminarOrden : Button = itemView.findViewById(R.id.btnEliminarOrden)
 
@@ -56,7 +57,7 @@ class OrdenesAdapter(
             txtTituloOrden.text = orden[position].Titulo
             txtCant.text = orden[position].Cantidad
             txtPrecio.text = "$${orden[position].Precio}"
-            //txtPrecioDesc.text = "$${orden[position].PrecioPromo}"
+            //txtNotaAdicionalesOrden.text = orden[position].NotaAdicionales
             btnEliminarOrden.setOnClickListener {
                 listener.onDeleteClicked(orden[position])
             }
