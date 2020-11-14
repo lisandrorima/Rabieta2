@@ -1,6 +1,7 @@
 package com.example.rabieta
 
 import android.R.attr.data
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -74,6 +75,11 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
 
     }
 
+    override fun onResume() {
+        retrieveOrdenes()
+        super.onResume()
+    }
+
     private fun retrieveOrdenes(): List<Orden> {
         var list = listOf<Orden>()
         OrdenRepository(this)
@@ -100,6 +106,14 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
         return list
     }
 
+    override fun onDeleteClicked(orden: Orden) {
+        OrdenRepository(this@CarritoActiviity.applicationContext).deleteOrden(orden)
+        onResume()
+    }
+
+    override fun onModifyClicked(orden: Orden) {
+        startActivity(Intent(this,ProductoDetalleActivity::class.java))
+    }
 
     override fun onOrdenesClicked(orden: Orden) {
         TODO("Not yet implemented")

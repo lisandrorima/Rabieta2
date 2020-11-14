@@ -101,12 +101,16 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.it_settings -> launchSettings()
-            //R.id.it_aboutUs ->
+            R.id.it_aboutUs -> launchAboutUsActivity()
             R.id.it_cam -> launchCamActivity()
             R.id.it_carrito->lauchCarritoActivity()
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun launchAboutUsActivity() {
+        startActivity(Intent(this,AboutUsActivity::class.java))
     }
 
     private fun lauchCarritoActivity() {

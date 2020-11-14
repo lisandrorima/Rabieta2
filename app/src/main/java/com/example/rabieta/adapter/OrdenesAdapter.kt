@@ -3,6 +3,7 @@ package com.example.rabieta.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -17,11 +18,20 @@ class OrdenesAdapter(
 
     private var orden: List<Orden> = emptyList()
 
-    class OrdenesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class OrdenesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
         val imgOrdenOrd = itemView.findViewById<ImageView>(R.id.imgOrden)
         val txtTituloOrden: TextView = itemView.findViewById(R.id.txtTituloOrden)
         val txtPrecio: TextView = itemView.findViewById(R.id.txtPrecioUnit)
         val txtCant: TextView = itemView.findViewById(R.id.txtcantidad)
+        val btnModificarOrden :Button = itemView.findViewById(R.id.btnModificarOrden)
+        val btnEliminarOrden : Button = itemView.findViewById(R.id.btnEliminarOrden)
+
+        override fun onClick(v: View?) {
+            when (v?.id){
+
+            }
+        }
 
 
     }
@@ -47,6 +57,12 @@ class OrdenesAdapter(
             txtCant.text = orden[position].Cantidad
             txtPrecio.text = "$${orden[position].Precio}"
             //txtPrecioDesc.text = "$${orden[position].PrecioPromo}"
+            btnEliminarOrden.setOnClickListener {
+                listener.onDeleteClicked(orden[position])
+            }
+            btnModificarOrden.setOnClickListener {
+                listener.onModifyClicked(orden[position])
+            }
 
             itemView.setOnClickListener {
                 listener.onOrdenesClicked(orden[position])
@@ -65,5 +81,8 @@ class OrdenesAdapter(
 
     interface OrdenesListener {
         fun onOrdenesClicked(orden: Orden)
+        fun onDeleteClicked(orden: Orden)
+        fun onModifyClicked(orden: Orden)
     }
+
 }
