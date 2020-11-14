@@ -11,17 +11,6 @@ interface ProductosApi {
     fun GetProductos(): Call<List<Producto>>
 
     @GET("/productos/{Id}")
-    fun GetProductoByID (@Path("Id") Id : String): Call<Producto>
-
-
-   // @POST("/new_games")
-   // fun addNewGames(
-   //     @Body games: List<Game>
-   // ): Call<List<GameResponse>>
-
-  // @PATCH("/new_games")
-  //  fun updateNewGames(
-  //      @Body games: List<Game>
-  //  ): Call<List<GameResponse>>
+    fun GetProductoByID(@Path("Id") Id: String): Call<Producto>
 
 }

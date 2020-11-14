@@ -18,7 +18,7 @@
     <ImageView
         android:id="@+id/imgDetalleComida"
         android:layout_width="wrap_content"
-        android:layout_height="300dp"
+        android:layout_height="200dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -31,16 +31,16 @@
         android:layout_width="413dp"
         android:layout_height="79dp"
         android:padding="16dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgDetalleComida" />
+        app:layout_constraintTop_toBottomOf="@+id/imgDetalleComida"
+        tools:text="Texto Descripcion Larga" />
 
     <TextView
         android:id="@+id/txtAgregar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Adicionales"
+        android:text="@string/Adicionales"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +50,8 @@
         android:id="@+id/chkBakon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bacon"
+        android:layout_marginTop="32dp"
+        android:text="@string/Bacon"
         app:layout_constraintBottom_toTopOf="@+id/chkCheddar"
         app:layout_constraintEnd_toEndOf="@+id/chkCheddar"
         app:layout_constraintHorizontal_bias="0.0"
@@ -61,8 +62,9 @@
         android:id="@+id/chkCheddar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Cheddar"
+        android:layout_marginTop="16dp"
+        android:text="@string/Cheddar"
+        app:layout_constraintBottom_toTopOf="@+id/chkSinAderezos"
         app:layout_constraintStart_toStartOf="@+id/guidelineStart"
         app:layout_constraintTop_toBottomOf="@+id/chkBakon" />
 
@@ -70,11 +72,10 @@
         android:id="@+id/chkSinAderezos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sin adherezos"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="16dp"
+        android:text="@string/Sinadherezos"
         app:layout_constraintStart_toStartOf="@+id/guidelineStart"
-        app:layout_constraintTop_toBottomOf="@+id/chkCheddar"
-        app:layout_constraintVertical_bias="0.257" />
+        app:layout_constraintTop_toBottomOf="@+id/chkCheddar" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineStart"
@@ -87,7 +88,7 @@
         android:id="@+id/btnAgregarComida"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Agregar al carrito"
+        android:text="@string/BtnAgregar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.71"
@@ -99,11 +100,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#C9CCCB"
-        android:text="TextView"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imgDetalleComida"
-        app:layout_constraintStart_toStartOf="@+id/guidelineStart" />
+        app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+        tools:text="100" />
 
     <TextView
         android:id="@+id/txtPrecioRealComDet"
@@ -111,11 +112,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:background="#C9CCCB"
-        android:text="TextView"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imgDetalleComida"
-        app:layout_constraintStart_toEndOf="@+id/txtPrecioFinalComDet" />
+        app:layout_constraintStart_toEndOf="@+id/txtPrecioFinalComDet"
+        tools:text="80" />
 
     <TextView
         android:id="@+id/txtDesComDet"
@@ -123,11 +124,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:background="#4CAF50"
-        android:text="TextView"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imgDetalleComida"
-        app:layout_constraintStart_toEndOf="@+id/txtPrecioRealComDet" />
+        app:layout_constraintStart_toEndOf="@+id/txtPrecioRealComDet"
+        tools:text="20%" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="96dp"
@@ -142,11 +143,11 @@
             android:id="@+id/txtCantOrdenComida"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Cant"
+            android:hint="@string/CantHint"
             android:inputType="number"
             android:selectAllOnFocus="true"
             android:singleLine="true"
-            android:text="1"
+            android:text="@string/CantDefecto"
             android:textAlignment="center" />
     </com.google.android.material.textfield.TextInputLayout>
 

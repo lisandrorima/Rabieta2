@@ -17,7 +17,7 @@
     <ImageView
         android:id="@+id/imgProductoDetalleBebida"
         android:layout_width="wrap_content"
-        android:layout_height="300dp"
+        android:layout_height="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbarDetalleBebida"
@@ -29,7 +29,7 @@
         android:layout_height="82dp"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guidelineStartBebida"
         app:layout_constraintTop_toBottomOf="@+id/imgProductoDetalleBebida" />
 
     <RadioGroup
@@ -37,18 +37,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checkedButton="@id/rbPinta"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.11"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescProductoBebida"
-        app:layout_constraintVertical_bias="0.19">
+        app:layout_constraintStart_toStartOf="@+id/guidelineStartBebida"
+        app:layout_constraintTop_toBottomOf="@+id/txtDescProductoBebida">
 
         <RadioButton
             android:id="@+id/rbPinta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:text="@string/Pinta"
             tools:text="Pinta" />
 
@@ -56,7 +54,7 @@
             android:id="@+id/rbMediaPinta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:text="@string/MediaPinta"
             tools:text="Media pinta" />
 
@@ -64,7 +62,7 @@
             android:id="@+id/rbLata"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:text="@string/Lata"
             tools:text="Lata" />
     </RadioGroup>

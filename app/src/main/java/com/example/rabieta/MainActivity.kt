@@ -30,7 +30,7 @@ const val PRODUCTO_DETALLE = "productoDetalle"
 
 class MainActivity : AppCompatActivity(), ProductosListener {
 
-    private var menuMain : Menu? = null
+    private var menuMain: Menu? = null
     private lateinit var rvProductos: RecyclerView
     private val adapter: ProductosAdapter by lazy { ProductosAdapter(this) }
     private val compositeDisposable = CompositeDisposable()
@@ -70,7 +70,6 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     }
 
 
-
     private fun retrieveProdApi() {
         ProductosNetworkClient.productosApi.GetProductos()
             .enqueue(object : Callback<List<Producto>> {
@@ -80,7 +79,7 @@ class MainActivity : AppCompatActivity(), ProductosListener {
                     response: Response<List<Producto>>
                 ) {
                     response.body()?.let {
-                        adapter.updateGames(it)
+                        adapter.updateProductos(it)
                     }
                 }
 
@@ -102,14 +101,14 @@ class MainActivity : AppCompatActivity(), ProductosListener {
             R.id.it_settings -> launchSettings()
             R.id.it_aboutUs -> launchAboutUsActivity()
             R.id.it_cam -> launchCamActivity()
-            R.id.it_carrito->lauchCarritoActivity()
+            R.id.it_carrito -> lauchCarritoActivity()
         }
 
         return super.onOptionsItemSelected(item)
     }
 
     private fun launchAboutUsActivity() {
-        startActivity(Intent(this,AboutUsActivity::class.java))
+        startActivity(Intent(this, AboutUsActivity::class.java))
     }
 
     private fun lauchCarritoActivity() {
@@ -169,7 +168,7 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     }
 
 
-     private fun CamQRPref() {
+    private fun CamQRPref() {
         Single.fromCallable { preferences.getBoolean("swHideQr", false) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

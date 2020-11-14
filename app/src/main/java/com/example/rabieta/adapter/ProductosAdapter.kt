@@ -31,7 +31,6 @@ class ProductosAdapter(
     }
 
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductosViewHolder {
         val itemView = LayoutInflater
             .from(parent.context)
@@ -64,7 +63,7 @@ class ProductosAdapter(
         return producto.size
     }
 
-    fun updateGames(productos: List<Producto>) {
+    fun updateProductos(productos: List<Producto>) {
         this.producto = productos
         notifyDataSetChanged()
     }

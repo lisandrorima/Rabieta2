@@ -6,6 +6,12 @@
     <string name="Elim">Eliminar</string>
     <string name="Pinta">Pinta</string>
     <string name="MediaPinta">Media Pinta</string>
+    <string name="Adicionales">Adicionales</string>
+    <string name="Bacon">Bacon</string>
+    <string name="Cheddar">Cheddar</string>
+    <string name="Sinadherezos">Sin adherezos</string>
+    <string name="BtnAgregar">Agregar al Carrito</string>
+    <string name="CantHint">Cant</string>
     <string name="Lata">Lata 430 ml</string>
     <string name="ToolbarTittle">Menú Rabioso</string>
     <string name="ToolbarCarrito">Carrito de ordenes</string>

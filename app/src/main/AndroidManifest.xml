@@ -18,9 +18,7 @@
         <activity android:name=".ProductoDetalleBebidaActivity" />
         <activity android:name=".ProductoDetalleActivity" />
         <activity android:name=".preferences.PreferenceActivity" />
-        <activity android:name=".RegisterActivity" />
         <activity android:name=".QrActivity" />
-        <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".SplashScreenActivity">
             <intent-filter>
