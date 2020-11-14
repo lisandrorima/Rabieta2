@@ -9,25 +9,15 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @JsonClass(generateAdapter = true)
-@DatabaseTable(tableName = "Productos")
 class Producto(
-    @DatabaseField(id = true)
     val Id: Int,
-    @DatabaseField
     val ImgResource: String,
-    @DatabaseField
     val Titulo: String,
-    @DatabaseField
     val DescCorta: String,
-    @DatabaseField
     val DescLarga: String,
-    @DatabaseField
     val Precio: String,
-    @DatabaseField
     val PrecioPromo: String,
-    @DatabaseField
     val porcentDesc: String,
-    @DatabaseField
     val Tipo: String
 ) : Parcelable {
 

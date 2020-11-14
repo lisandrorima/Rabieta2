@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.rabieta.db.ProductosRepository
 import com.example.rabieta.models.Producto
 import com.example.rabieta.preferences.PreferenceActivity
 //import com.example.rabieta.network.ProductosNetworkClient

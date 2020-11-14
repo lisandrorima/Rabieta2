@@ -59,7 +59,7 @@ class ProductoDetalleActivity : AppCompatActivity() {
         btnAddCart.setOnClickListener {
             if (ValidarCantidad()) {
                 AgregarComidaAlCarro(producto)
-                lauchMainActivity()
+                finish()
             }
         }
     }
@@ -82,8 +82,8 @@ class ProductoDetalleActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        startActivity(Intent(this, MainActivity::class.java))
-
+        //startActivity(Intent(this, MainActivity::class.java))
+        finish()
         super.onBackPressed()
     }
 

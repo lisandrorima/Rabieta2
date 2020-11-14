@@ -26,7 +26,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-//const val PRODUCTO_DETALLE = "productoDetalle"
 
 class QrActivity : AppCompatActivity() {
     val CAMERA_PERM = 111
@@ -139,10 +138,12 @@ class QrActivity : AppCompatActivity() {
             val intent = Intent(this, ProductoDetalleBebidaActivity::class.java)
             intent.putExtra(PRODUCTO_DETALLE, producto)
             startActivity(intent)
+            finish()
         }else{
             val intent = Intent(this, ProductoDetalleActivity::class.java)
             intent.putExtra(PRODUCTO_DETALLE, producto)
             startActivity(intent)
+            finish()
         }
 
 
