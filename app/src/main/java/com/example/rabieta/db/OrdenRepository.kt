@@ -29,7 +29,7 @@ class OrdenRepository (context: Context){
 
     fun getOrdenes(): Single<List<Orden>> {
         return Single
-            .fromCallable { dao.queryForAll() } // crea un observable (Single) a una función que se va a llamar, es decir, la encapsula
+            .fromCallable { dao.queryForAll() }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 

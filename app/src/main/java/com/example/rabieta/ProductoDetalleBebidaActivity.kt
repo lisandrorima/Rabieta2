@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import com.example.rabieta.db.OrdenRepository
@@ -22,6 +23,8 @@ class ProductoDetalleBebidaActivity : AppCompatActivity() {
     private lateinit var txtDescuentoBebida : TextView
     private lateinit var txtCantOrdenBebida : TextView
     private lateinit var btnAgregarBebida : Button
+    private lateinit var rgTamaño :RadioGroup
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +42,8 @@ class ProductoDetalleBebidaActivity : AppCompatActivity() {
         txtDescuentoBebida = findViewById(R.id.txtDescBebida)
         txtCantOrdenBebida = findViewById(R.id.txtCantOrdenBebida)
         btnAgregarBebida = findViewById(R.id.btnAgregarBebida)
+        rgTamaño = findViewById(R.id.rgTamañoBebida)
+
 
         Picasso.get().load(producto?.ImgResource.toString()).into(imgBebida)
         txtDescripcionBebida.text= producto?.DescLarga
@@ -49,16 +54,33 @@ class ProductoDetalleBebidaActivity : AppCompatActivity() {
         btnAgregarBebida.setOnClickListener {
             if (VerificaCantidad()){
                 AgregarBebidaAlCarro(producto)
-                finish()
-                // lauchCarritoActivity()
+                lauchMainActivity()
             }
         }
     }
 
+
+
+    private fun getRadioButon(checkedID: Int) : String {
+
+        var nota =""
+        if (checkedID==R.id.rbLata){
+            nota= "LATA"
+        }
+        if (checkedID==R.id.rbMediaPinta){
+            nota= "MEDIA PINTA"
+        }
+        if (checkedID==R.id.rbPinta){
+            nota= "PINTA"
+        }
+        return nota
+    }
+
+
     private fun AgregarBebidaAlCarro(producto: Producto?) {
         var orden = Orden(producto)
         orden.Cantidad = txtCantOrdenBebida.text.toString()
-        orden.NotaAdicionales = ""
+        orden.NotaAdicionales = getRadioButon(rgTamaño.checkedRadioButtonId)
         OrdenRepository(this@ProductoDetalleBebidaActivity.applicationContext).addOrden(orden)
     }
 
@@ -72,8 +94,8 @@ class ProductoDetalleBebidaActivity : AppCompatActivity() {
         supportActionBar?.title = titulo
     }
 
-    private fun lauchCarritoActivity() {
-        val intent = Intent(this, CarritoActiviity::class.java)
+    private fun lauchMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
 }

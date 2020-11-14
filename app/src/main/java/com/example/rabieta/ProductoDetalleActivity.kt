@@ -1,11 +1,13 @@
 package com.example.rabieta
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.rabieta.db.OrdenRepository
 import com.example.rabieta.models.Orden
@@ -23,6 +25,9 @@ class ProductoDetalleActivity : AppCompatActivity() {
     private lateinit var txtDescDetCom: TextView
     private lateinit var txtCantOrdenComida: TextView
     private lateinit var btnAddCart: Button
+    private lateinit var cbBacon: CheckBox
+    private lateinit var cbChedar: CheckBox
+    private lateinit var cbSinAderezos: CheckBox
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +46,9 @@ class ProductoDetalleActivity : AppCompatActivity() {
         txtDescDetCom = findViewById(R.id.txtDesComDet)
         txtCantOrdenComida = findViewById(R.id.txtCantOrdenComida)
         btnAddCart = findViewById(R.id.btnAgregarComida)
-
+        cbBacon = findViewById(R.id.chkBakon)
+        cbChedar = findViewById(R.id.chkCheddar)
+        cbSinAderezos = findViewById(R.id.chkSinAderezos)
 
         Picasso.get().load(producto?.ImgResource.toString()).into(imgProducto)
         txtDetalle.text = producto?.DescLarga
@@ -52,7 +59,7 @@ class ProductoDetalleActivity : AppCompatActivity() {
         btnAddCart.setOnClickListener {
             if (ValidarCantidad()) {
                 AgregarComidaAlCarro(producto)
-                lauchCarritoActivity()
+                lauchMainActivity()
             }
         }
     }
@@ -60,7 +67,7 @@ class ProductoDetalleActivity : AppCompatActivity() {
     private fun AgregarComidaAlCarro(producto: Producto?) {
         var orden = Orden(producto)
         orden.Cantidad = txtCantOrdenComida.text.toString()
-        orden.NotaAdicionales = ""
+        orden.NotaAdicionales = checkbox_clicked()
         OrdenRepository(this@ProductoDetalleActivity.applicationContext).addOrden(orden)
     }
 
@@ -75,13 +82,28 @@ class ProductoDetalleActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        //startActivity(Intent(this, MainActivity::class.java))
-        finish()
+        startActivity(Intent(this, MainActivity::class.java))
+
         super.onBackPressed()
     }
 
-    private fun lauchCarritoActivity() {
-        val intent = Intent(this, CarritoActiviity::class.java)
+    private fun lauchMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+    }
+
+    fun checkbox_clicked() : String{
+        var notas =""
+        if (cbBacon.isChecked()) {
+            notas +="Bacon, "
+        }
+        if(cbChedar.isChecked()){
+            notas +="Cheddar, "
+        }
+        if(cbSinAderezos.isChecked()){
+            notas +=" Sin Aderezos"
+        }
+
+        return notas
     }
 }

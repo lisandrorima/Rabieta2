@@ -61,21 +61,20 @@
         android:id="@+id/chkCheddar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:text="Cheddar"
-        app:layout_constraintBottom_toTopOf="@+id/checkBox3"
-        app:layout_constraintEnd_toEndOf="@+id/checkBox3"
-        app:layout_constraintHorizontal_bias="0.057"
         app:layout_constraintStart_toStartOf="@+id/guidelineStart"
         app:layout_constraintTop_toBottomOf="@+id/chkBakon" />
 
     <CheckBox
-        android:id="@+id/checkBox3"
+        android:id="@+id/chkSinAderezos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sin adherezos"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guidelineStart"
-        app:layout_constraintTop_toBottomOf="@+id/chkCheddar" />
+        app:layout_constraintTop_toBottomOf="@+id/chkCheddar"
+        app:layout_constraintVertical_bias="0.257" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineStart"
