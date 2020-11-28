@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity(), ProductosListener {
                     response: Response<List<Producto>>
                 ) {
                     response.body()?.let {
-                        adapter.updateProductos(it)
+                        adapter.updateGames(it)
                     }
                 }
 

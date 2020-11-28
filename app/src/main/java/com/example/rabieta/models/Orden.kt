@@ -30,12 +30,15 @@ class Orden(
     val Tipo: String?,
     @DatabaseField
     var NotaAdicionales: String?,
+
+    @DatabaseField
+    var PrecioFinal: String?,
 ) : Parcelable {
-    constructor() : this(null, "", "", "", "","","","","","")
+    constructor() : this(null, "", "", "", "","","","","","","")
 
     constructor(producto: Producto?) : this(
         null, "", producto?.ImgResource, producto?.PrecioPromo, producto?.Titulo
-        ,producto?.DescLarga,producto?.PrecioPromo,producto?.porcentDesc,producto?.Tipo,"")
+        ,producto?.DescLarga,producto?.PrecioPromo,producto?.porcentDesc,producto?.Tipo,"","")
 
 
 

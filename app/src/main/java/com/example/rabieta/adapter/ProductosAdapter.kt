@@ -63,7 +63,7 @@ class ProductosAdapter(
         return producto.size
     }
 
-    fun updateProductos(productos: List<Producto>) {
+    fun updateGames(productos: List<Producto>) {
         this.producto = productos
         notifyDataSetChanged()
     }

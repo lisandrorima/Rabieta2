@@ -22,4 +22,5 @@
     <string name="DescripcionAus">Desde el origen hasta la canilla. Nos mueve una idea de artesanal que representa
                                     un espíritu nuevo y leal a lo que cree: lo industrial está bien, para los otros.
                                     Esto es otra cosa, lo que hacemos es distinto. Y es un camino de ida. </string>
+    <string name="push_notif_channel_id">2</string>
 </resources>

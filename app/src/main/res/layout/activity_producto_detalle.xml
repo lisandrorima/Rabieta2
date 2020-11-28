@@ -62,9 +62,8 @@
         android:id="@+id/chkCheddar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/Cheddar"
-        app:layout_constraintBottom_toTopOf="@+id/chkSinAderezos"
+        android:layout_marginTop="40dp"
+        android:text="Cheddar"
         app:layout_constraintStart_toStartOf="@+id/guidelineStart"
         app:layout_constraintTop_toBottomOf="@+id/chkBakon" />
 
@@ -72,8 +71,8 @@
         android:id="@+id/chkSinAderezos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/Sinadherezos"
+        android:text="Sin adherezos"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guidelineStart"
         app:layout_constraintTop_toBottomOf="@+id/chkCheddar" />
 

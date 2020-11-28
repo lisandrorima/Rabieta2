@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "838779174103",
+    "firebase_url": "https://rabieta-c396f.firebaseio.com",
+    "project_id": "rabieta-c396f",
+    "storage_bucket": "rabieta-c396f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:838779174103:android:833a3a4206f954b4fac492",
+        "android_client_info": {
+          "package_name": "com.example.rabieta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "838779174103-8u59dh955vg3p1tt71bkkv01pt8nk753.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkTLYZHx5XWDlt5MezWHwANb4h1eqdvNo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "838779174103-8u59dh955vg3p1tt71bkkv01pt8nk753.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
