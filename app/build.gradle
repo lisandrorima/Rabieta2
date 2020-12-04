@@ -7,6 +7,8 @@ apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 30
+
+
     buildToolsVersion "30.0.2"
     //sourceCompatibility JavaVersion.VERSION_1_8
     //targetCompatibility JavaVersion.VERSION_1_8
@@ -52,9 +54,15 @@ dependencies {
     implementation 'com.j256.ormlite:ormlite-android:5.1'
 
     //firebase
+
     implementation platform('com.google.firebase:firebase-bom:26.1.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
-    implementation 'com.google.firebase:firebase-messaging:20.2.3'
+    implementation 'com.google.firebase:firebase-messaging-ktx:21'
+   // implementation 'com.google.android.gms:play-services-basement:17.5.0'
+    //implementation 'com.google.firebase:firebase-analytics:18.0.0'
+
+
+
 
     // Preferences
     implementation "androidx.preference:preference-ktx:$preference_version"

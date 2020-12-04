@@ -9,13 +9,23 @@ class PreferenceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_preferece)
         showPreferences()
+
     }
 
     private fun showPreferences() {
+        val transaction =
         supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.container, PreferenceFragment())
-            .commit()
+            .beginTransaction().apply {  replace(R.id.container, PreferenceFragment())}
+        transaction.commitNowAllowingStateLoss()
+    }
+
+
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 
 }
+
+

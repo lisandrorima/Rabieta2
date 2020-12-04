@@ -46,12 +46,8 @@ class QrActivity : AppCompatActivity() {
         codeScanner.isFlashEnabled = false
 
         codeScanner.decodeCallback = DecodeCallback {
-            runOnUiThread {
-
+            runOnUiThread{
                 if (it.toString().toIntOrNull() != null) {
-
-
-                    Log.i("act", "antes de traer prod")
 
                     ProductosNetworkClient.productosApi.GetProductoByID(it.toString())
                         .enqueue(object : Callback<Producto> {
@@ -69,7 +65,7 @@ class QrActivity : AppCompatActivity() {
                             }
 
                             override fun onFailure(call: Call<Producto>, t: Throwable) {
-                                Log.e("QR", "Error al obtener los juegos nuevos", t)
+                                Log.e("QR", "Error al obtener producto", t)
                                 Log.i("act", "fallo")
                             }
 
@@ -77,17 +73,17 @@ class QrActivity : AppCompatActivity() {
                         })
                 } else {
                     Toast.makeText(this, "Scan result: ${it.text} ", Toast.LENGTH_LONG).show()
-                }
+                }}
 
 
             }
-        }
+
 
         codeScanner.errorCallback = ErrorCallback {
-            runOnUiThread {
+        runOnUiThread{
                 Toast.makeText(this, "Camera error: ${it.message}", Toast.LENGTH_LONG).show()
-            }
-        }
+
+        }}
 
         checkPermission()
     }

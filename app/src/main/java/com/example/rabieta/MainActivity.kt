@@ -1,46 +1,51 @@
 package com.example.rabieta
 
+//import com.example.rabieta.network.ProductosNetworkClient
+import ProductosNetworkClient
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.rabieta.adapter.ProductosAdapter
+import com.example.rabieta.adapter.ProductosListener
 import com.example.rabieta.models.Producto
 import com.example.rabieta.preferences.PreferenceActivity
-//import com.example.rabieta.network.ProductosNetworkClient
+import io.reactivex.Single
 import io.reactivex.SingleObserver
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import com.example.rabieta.adapter.ProductosAdapter
-import com.example.rabieta.adapter.ProductosListener
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+
 
 const val PRODUCTO_DETALLE = "productoDetalle"
-
 class MainActivity : AppCompatActivity(), ProductosListener {
 
     private var menuMain: Menu? = null
     private lateinit var rvProductos: RecyclerView
     private val adapter: ProductosAdapter by lazy { ProductosAdapter(this) }
     private val compositeDisposable = CompositeDisposable()
-    private val preferences: SharedPreferences by lazy {
-        PreferenceManager.getDefaultSharedPreferences(this)
-    }
+    private lateinit var preferences: SharedPreferences
+
+
+
+
     private lateinit var toolbar: Toolbar
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
+        preferences = PreferenceManager.getDefaultSharedPreferences(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupUI()
@@ -50,25 +55,25 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     private fun setupUI() {
         retrieveProdApi()
         setupToolbar()
-        DarkModePref()
+        //CamQRPref()
+        //DarkModePref()
         rvProductos = findViewById(R.id.rvProductos)
         rvProductos.adapter = adapter
     }
 
     override fun onResume() {
-        super.onResume()
-        DarkModePref()
-        CamQRPref()
         retrieveProdApi()
+        //CamQRPref()
+        //DarkModePref()
+        super.onResume()
     }
 
-    private fun setupToolbar() {
+   private fun setupToolbar() {
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = getString(R.string.ToolbarTittle)
 
     }
-
 
     private fun retrieveProdApi() {
         ProductosNetworkClient.productosApi.GetProductos()
@@ -80,6 +85,7 @@ class MainActivity : AppCompatActivity(), ProductosListener {
                 ) {
                     response.body()?.let {
                         adapter.updateGames(it)
+
                     }
                 }
 
@@ -89,8 +95,7 @@ class MainActivity : AppCompatActivity(), ProductosListener {
             })
     }
 
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         menuMain = menu
         return super.onCreateOptionsMenu(menu)
@@ -112,13 +117,11 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     }
 
     private fun lauchCarritoActivity() {
-        val intent = Intent(this, CarritoActiviity::class.java)
-        startActivity(intent)
+        startActivity(Intent(this, CarritoActiviity::class.java))
     }
 
     private fun launchSettings() {
-        val intent = Intent(this, PreferenceActivity::class.java)
-        startActivity(intent)
+        startActivity(Intent(this, PreferenceActivity::class.java))
     }
 
     override fun onProductoClicked(producto: Producto) {
@@ -136,12 +139,14 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     }
 
     private fun launchCamActivity() {
-        val intent = Intent(this, QrActivity::class.java)
-        startActivity(intent)
+        startActivity(Intent(this, QrActivity::class.java))
     }
 
     private fun DarkModePref() {
-        Single.fromCallable { preferences.getBoolean("swDarkMode", true) }
+        Single.fromCallable { preferences.getBoolean(
+            "swDarkMode",
+            true
+        ) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : SingleObserver<Boolean> {
@@ -153,23 +158,26 @@ class MainActivity : AppCompatActivity(), ProductosListener {
                     if (swDarkMode) {
                         AppCompatDelegate.setDefaultNightMode(
                             AppCompatDelegate.MODE_NIGHT_YES
-                        );
+                        )
+                        delegate.applyDayNight()
                     } else {
                         AppCompatDelegate.setDefaultNightMode(
                             AppCompatDelegate.MODE_NIGHT_NO
-                        );
+                        )
+                        delegate.applyDayNight()
+
                     }
                 }
 
                 override fun onError(e: Throwable) {
-                    Log.i("MainActivity", "Error al obtener preferencias - shouldShowFabAdd", e)
+                    Log.i("MainActivity", "Error al obtener preferencias ", e)
                 }
             })
     }
 
 
     private fun CamQRPref() {
-        Single.fromCallable { preferences.getBoolean("swHideQr", false) }
+        Single.fromCallable { preferences.getBoolean("swHideQr", true) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : SingleObserver<Boolean> {

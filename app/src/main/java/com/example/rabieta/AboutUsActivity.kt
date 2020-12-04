@@ -18,6 +18,11 @@ class AboutUsActivity : AppCompatActivity() {
         setupUI()
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
+
     private fun setupUI() {
         setupToolbar()
         txtTitulo = findViewById(R.id.txtTituloAboutUs)

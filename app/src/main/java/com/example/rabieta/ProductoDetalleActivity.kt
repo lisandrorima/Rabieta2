@@ -68,7 +68,10 @@ class ProductoDetalleActivity : AppCompatActivity() {
         var orden = Orden(producto)
         orden.Cantidad = txtCantOrdenComida.text.toString()
         orden.NotaAdicionales = checkbox_clicked()
-        OrdenRepository(this@ProductoDetalleActivity.applicationContext).addOrden(orden)
+
+        OrdenRepository(this@ProductoDetalleActivity.applicationContext)
+            .addOrden(orden)
+            .subscribe()
     }
 
     private fun ValidarCantidad(): Boolean {

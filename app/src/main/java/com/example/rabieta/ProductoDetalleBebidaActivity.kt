@@ -79,7 +79,8 @@ class ProductoDetalleBebidaActivity : AppCompatActivity() {
         var orden = Orden(producto)
         orden.Cantidad = txtCantOrdenBebida.text.toString()
         orden.NotaAdicionales = getRadioButon(rgTamaño.checkedRadioButtonId)
-        OrdenRepository(this@ProductoDetalleBebidaActivity.applicationContext).addOrden(orden)
+        OrdenRepository(this@ProductoDetalleBebidaActivity.applicationContext).addOrden(orden).subscribe()
+        finish()
     }
 
     private fun VerificaCantidad(): Boolean {

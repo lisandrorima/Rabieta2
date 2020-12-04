@@ -21,6 +21,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
+import io.reactivex.CompletableObserver
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -50,10 +51,10 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
     }
 
     private fun setupUI() {
+        retrieveOrdenes()
         coordinatorLayout = findViewById(R.id.coordinatorLayout)
         fabAdd = findViewById(R.id.floatingActionButton)
-        retrieveOrdenes()
-        setupToolbar()
+      //  setupToolbar()
         rvOrdenes = findViewById(R.id.rvOrdenes)
         rvOrdenes.adapter = adapter
         fabAdd.setOnClickListener { post(ordenessend) }
@@ -66,7 +67,9 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
 
                 override fun onResponse(call: Call<List<Orden>>, response: Response<List<Orden>>) {
                     for (orden in ordenes) {
-                        OrdenRepository(this@CarritoActiviity.applicationContext).deleteOrden(orden)
+                        OrdenRepository(this@CarritoActiviity.applicationContext)
+                            .deleteOrden(orden)
+
                     }
                     showNotification()
                     finish()
@@ -105,7 +108,7 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
 
 
                 override fun onError(e: Throwable) {
-                    Log.i("MainActivity", "Error al obtener los juegos", e)
+                    Log.i("MainActivity", "Error al obtener los pedidos", e)
                 }
 
                 override fun onSuccess(ordenes: List<Orden>) {
@@ -118,6 +121,13 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
 
     }
 
+    private fun deleteOrden(orden: Orden){
+        compositeDisposable.add(
+            OrdenRepository(this@CarritoActiviity.applicationContext)
+                .deleteOrden(orden)
+                .subscribe()
+    )}
+
 
     override fun onDeleteClicked(orden: Orden) {
         val builder = AlertDialog.Builder(this)
@@ -125,7 +135,8 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
             .setTitle(orden.Titulo)
             .setMessage("Desea eliminar  ${orden.Titulo} del carrito")
             .setPositiveButton("BORRAR") { _, _ ->
-                OrdenRepository(this@CarritoActiviity.applicationContext).deleteOrden(orden)
+
+                deleteOrden(orden)
                 onResume()
             }
             .setNegativeButton("CANCELAR") { _, _ ->
@@ -145,7 +156,7 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
         actualizada += 1
 
         orden.Cantidad = actualizada.toString()
-        OrdenRepository(this).updateOrden(orden)
+        OrdenRepository(this).updateOrden(orden).subscribe()
         onResume()
     }
 
@@ -156,7 +167,7 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
             actualizada -= 1
 
             orden.Cantidad = actualizada.toString()
-            OrdenRepository(this).updateOrden(orden)
+            OrdenRepository(this).updateOrden(orden).subscribe()
         } else {
             onDeleteClicked(orden)
         }
