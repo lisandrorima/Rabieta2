@@ -22,5 +22,17 @@ class LoginRepositoryImpl(
 
     }
 
+    override fun getUser(email: String, success: (UserData) -> Unit, error: () -> Unit) {
+        compositeDisposable.add(
+            dataUserDao
+                .getUser(email)
+                .subscribe({
+                    success(it)
+                }, {
+                    error()
+                })
+        )
+    }
+
 
 }

@@ -11,9 +11,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.rabieta.R
 import com.example.rabieta.Repositories.LoginRepositoryImpl
 import com.example.rabieta.db.UserDataDao
-import com.example.rabieta.models.UserData
 import com.example.rabieta.presenters.IRegisterPresenter
-import com.example.rabieta.presenters.RegisterPresenter
+import com.example.rabieta.presenters.RegisterPresenterImpl
 import com.google.android.material.textfield.TextInputEditText
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_register.*
@@ -30,7 +29,7 @@ class RegisterActivity : AppCompatActivity(), IRegisterActivityView {
     private val compositeDisposable = CompositeDisposable()
 
     private val presenter: IRegisterPresenter by lazy {
-        RegisterPresenter(
+        RegisterPresenterImpl(
             this,
             LoginRepositoryImpl(
                 UserDataDao(this@RegisterActivity.applicationContext),

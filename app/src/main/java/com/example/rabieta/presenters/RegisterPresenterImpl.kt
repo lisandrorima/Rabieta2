@@ -5,7 +5,7 @@ import com.example.rabieta.models.UserData
 import com.example.rabieta.ui.IRegisterActivityView
 import com.example.rabieta.ui.RegisterActivity
 
-class RegisterPresenter(
+class RegisterPresenterImpl(
     private val registerView: IRegisterActivityView,
     private val repository: ILoginRepository
 ) : IRegisterPresenter {
@@ -57,6 +57,5 @@ class RegisterPresenter(
     private fun createUserData(user: String, pass1: String): UserData {
         return UserData(user, pass1)
     }
-
 
 }

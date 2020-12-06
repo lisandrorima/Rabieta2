@@ -41,5 +41,8 @@
     <string name="reg_error_nombre">Complete el campo usuario</string>
     <string name="reg_error_pass1">Complete la contraseña, debe ser mayor a 4 caracteres</string>
     <string name="reg_error_pass2">El reingreso de la contraseña no coincide</string>
+    <string name="error_login">Error al realizar el login, verifique sus datos y vuelva a intentarlo</string>
+    <string name="error_pass_input">Completar el campo Contraseña</string>
+    <string name="error_login_input">Completar el campo Usuario</string>
 
 </resources>
