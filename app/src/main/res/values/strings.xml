@@ -16,11 +16,30 @@
     <string name="ToolbarTittle">Menú Rabioso</string>
     <string name="ToolbarCarrito">Carrito de ordenes</string>
     <string name="ToolbarAboutUs">About Us</string>
-    <string name= "CantDefecto">1</string>
-    <string name= "hintDefecto">Ingrese cantidad</string>
-    <string name= "TituloAbout">Una cerveza diferente</string>
+    <string name="CantDefecto">1</string>
+    <string name="hintDefecto">Ingrese cantidad</string>
+    <string name="TituloAbout">Una cerveza diferente</string>
     <string name="DescripcionAus">Desde el origen hasta la canilla. Nos mueve una idea de artesanal que representa
                                     un espíritu nuevo y leal a lo que cree: lo industrial está bien, para los otros.
                                     Esto es otra cosa, lo que hacemos es distinto. Y es un camino de ida. </string>
     <string name="push_notif_channel_id">2</string>
+
+    <!--  Login Activity  -->
+
+    <string name="btnLogin">Login</string>
+    <string name="btnRegister">Registrarse</string>
+    <string name="userlog">Usuario</string>
+    <string name="passlog">Contraseña</string>
+
+    <!--  Register Activity  -->
+    <string name="btnRegisterReg">Registrarse</string>
+    <string name="cancelReg">Cancelar</string>
+    <string name="userReg">Usuario</string>
+    <string name="passReg">Contraseña</string>
+    <string name="pass2Reg">Reingrese Contraseña</string>
+    <string name="error_register">Error al registrarse, vuelva a intentarlo</string>
+    <string name="reg_error_nombre">Complete el campo usuario</string>
+    <string name="reg_error_pass1">Complete la contraseña, debe ser mayor a 4 caracteres</string>
+    <string name="reg_error_pass2">El reingreso de la contraseña no coincide</string>
+
 </resources>
