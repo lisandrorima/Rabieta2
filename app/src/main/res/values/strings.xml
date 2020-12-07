@@ -23,6 +23,9 @@
                                     un espíritu nuevo y leal a lo que cree: lo industrial está bien, para los otros.
                                     Esto es otra cosa, lo que hacemos es distinto. Y es un camino de ida. </string>
     <string name="push_notif_channel_id">2</string>
+    <string name="carrito">Mi Carrito</string>
+    <string name="salir">Salir de mi sesión</string>
+    <string name="registrar">Registrarme</string>
 
     <!--  Login Activity  -->
 
@@ -44,5 +47,7 @@
     <string name="error_login">Error al realizar el login, verifique sus datos y vuelva a intentarlo</string>
     <string name="error_pass_input">Completar el campo Contraseña</string>
     <string name="error_login_input">Completar el campo Usuario</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
 
 </resources>

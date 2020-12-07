@@ -8,15 +8,21 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rabieta.adapter.ProductosAdapter
 import com.example.rabieta.adapter.ProductosListener
 import com.example.rabieta.models.Producto
 import com.example.rabieta.preferences.PreferenceActivity
+import com.example.rabieta.ui.RegisterActivity
+import com.google.android.material.navigation.NavigationView
 import io.reactivex.Single
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -29,6 +35,7 @@ import retrofit2.Response
 
 
 const val PRODUCTO_DETALLE = "productoDetalle"
+
 class MainActivity : AppCompatActivity(), ProductosListener {
 
     private var menuMain: Menu? = null
@@ -36,9 +43,8 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     private val adapter: ProductosAdapter by lazy { ProductosAdapter(this) }
     private val compositeDisposable = CompositeDisposable()
     private lateinit var preferences: SharedPreferences
-
-
-
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navView: NavigationView
 
     private lateinit var toolbar: Toolbar
 
@@ -57,8 +63,9 @@ class MainActivity : AppCompatActivity(), ProductosListener {
         setupToolbar()
         //CamQRPref()
         //DarkModePref()
-        rvProductos = findViewById(R.id.rvProductos)
+        setupDrawer()
         rvProductos.adapter = adapter
+
     }
 
     override fun onResume() {
@@ -68,10 +75,44 @@ class MainActivity : AppCompatActivity(), ProductosListener {
         super.onResume()
     }
 
-   private fun setupToolbar() {
+
+    private fun setupToolbar() {
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = getString(R.string.ToolbarTittle)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+    }
+
+    private fun setupDrawer() {
+        navView = findViewById(R.id.navigationView)
+        drawerLayout = findViewById(R.id.drawerLayout)
+        val drawertoggle =
+            ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close)
+        drawerLayout.addDrawerListener(drawertoggle)
+        rvProductos = findViewById(R.id.rvProductos)
+        drawertoggle.syncState()
+        selectNavigation()
+    }
+
+    private fun selectNavigation() {
+        navView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.it_carrito -> {
+                    this.drawerLayout.closeDrawer(GravityCompat.START)
+                    lauchCarritoActivity()
+                    true
+                }
+                R.id.it_reg ->{
+                    this.drawerLayout.closeDrawer(GravityCompat.START)
+                    launchRegister()
+                    true
+                }
+                else -> {
+                    false
+                }
+            }
+        }
 
     }
 
@@ -95,7 +136,7 @@ class MainActivity : AppCompatActivity(), ProductosListener {
             })
     }
 
-   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         menuMain = menu
         return super.onCreateOptionsMenu(menu)
@@ -106,7 +147,6 @@ class MainActivity : AppCompatActivity(), ProductosListener {
             R.id.it_settings -> launchSettings()
             R.id.it_aboutUs -> launchAboutUsActivity()
             R.id.it_cam -> launchCamActivity()
-            R.id.it_carrito -> lauchCarritoActivity()
         }
 
         return super.onOptionsItemSelected(item)
@@ -114,6 +154,10 @@ class MainActivity : AppCompatActivity(), ProductosListener {
 
     private fun launchAboutUsActivity() {
         startActivity(Intent(this, AboutUsActivity::class.java))
+    }
+
+    private fun launchRegister() {
+        startActivity(Intent(this, RegisterActivity::class.java))
     }
 
     private fun lauchCarritoActivity() {
@@ -143,10 +187,12 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     }
 
     private fun DarkModePref() {
-        Single.fromCallable { preferences.getBoolean(
-            "swDarkMode",
-            true
-        ) }
+        Single.fromCallable {
+            preferences.getBoolean(
+                "swDarkMode",
+                true
+            )
+        }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : SingleObserver<Boolean> {
@@ -198,5 +244,19 @@ class MainActivity : AppCompatActivity(), ProductosListener {
                     Log.i("MainActivity", "Error al obtener preferencias - CamQRPref", e)
                 }
             })
+    }
+
+
+    override fun onBackPressed() {
+        if (this.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            this.drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        drawerLayout.openDrawer(navView)
+        return true
     }
 }

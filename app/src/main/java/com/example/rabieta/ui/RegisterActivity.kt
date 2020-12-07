@@ -14,13 +14,14 @@ import com.example.rabieta.db.UserDataDao
 import com.example.rabieta.presenters.IRegisterPresenter
 import com.example.rabieta.presenters.RegisterPresenterImpl
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity(), IRegisterActivityView {
-    private lateinit var etUser: TextInputEditText
-    private lateinit var etPass1: TextInputEditText
-    private lateinit var etPass2: TextInputEditText
+    private lateinit var etUser: TextInputLayout
+    private lateinit var etPass1: TextInputLayout
+    private lateinit var etPass2: TextInputLayout
     private lateinit var btnRegister: Button
     private lateinit var btnCancel: Button
     private lateinit var progressBar: ProgressBar
@@ -58,7 +59,7 @@ class RegisterActivity : AppCompatActivity(), IRegisterActivityView {
     }
 
     private fun addUser() {
-        presenter.doAddUser(getTextFrom(etUser), getTextFrom(etPass1), getTextFrom(etPass2))
+        presenter.doAddUser(etUser.editText?.text.toString(), etPass1.editText?.text.toString(), etPass2.getEditText()?.text.toString())
     }
 
     override fun showSaving() {
