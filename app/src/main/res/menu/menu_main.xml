@@ -9,8 +9,7 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/it_settings"
-        android:title="Settings" />
-    <item
-        android:id="@+id/it_aboutUs"
-        android:title="About Us" />
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="Settings"
+        app:showAsAction="always" />
 </menu>

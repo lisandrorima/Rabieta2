@@ -49,5 +49,7 @@
     <string name="error_login_input">Completar el campo Usuario</string>
     <string name="open">open</string>
     <string name="close">close</string>
+    <string name="login">Acceder a mi cuenta</string>
+    <string name="AboutUs">Sobre nosotros</string>
 
 </resources>

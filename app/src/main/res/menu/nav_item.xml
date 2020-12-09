@@ -3,9 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/it_carrito"
-        android:icon="@drawable/ic_baseline_shopping_cart_24"
-        android:title="@string/carrito"
+        android:id="@+id/it_login"
+        android:icon="@drawable/ic_baseline_login_24"
+        android:title="@string/login"
         app:showAsAction="ifRoom" />
 
     <item
@@ -15,10 +15,22 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/it_carrito"
+        android:icon="@drawable/ic_baseline_shopping_cart_24"
+        android:title="@string/carrito"
+        app:showAsAction="ifRoom" />
+
+
+    <item
         android:id="@+id/it_deslog"
         android:icon="@drawable/ic_outline_power_settings_new_24"
         android:title="@string/salir"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/it_aboutUs"
+        android:icon="@drawable/ic_baseline_info_24"
+        android:title="@string/AboutUs"
+        app:showAsAction="ifRoom" />
 
 </menu>

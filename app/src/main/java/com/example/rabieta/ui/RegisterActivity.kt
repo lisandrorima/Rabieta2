@@ -87,6 +87,7 @@ class RegisterActivity : AppCompatActivity(), IRegisterActivityView {
 
     override fun invalidUser() {
         etUser.error = getString(R.string.reg_error_nombre)
+
     }
 
     override fun invalidPass1() {

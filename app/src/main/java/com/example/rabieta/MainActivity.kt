@@ -21,6 +21,7 @@ import com.example.rabieta.adapter.ProductosAdapter
 import com.example.rabieta.adapter.ProductosListener
 import com.example.rabieta.models.Producto
 import com.example.rabieta.preferences.PreferenceActivity
+import com.example.rabieta.ui.LoginActivity
 import com.example.rabieta.ui.RegisterActivity
 import com.google.android.material.navigation.NavigationView
 import io.reactivex.Single
@@ -103,9 +104,19 @@ class MainActivity : AppCompatActivity(), ProductosListener {
                     lauchCarritoActivity()
                     true
                 }
-                R.id.it_reg ->{
+                R.id.it_reg -> {
                     this.drawerLayout.closeDrawer(GravityCompat.START)
                     launchRegister()
+                    true
+                }
+                R.id.it_login -> {
+                    this.drawerLayout.closeDrawer(GravityCompat.START)
+                    LaunchLogin()
+                    true
+                }
+                R.id.it_aboutUs -> {
+                    this.drawerLayout.closeDrawer(GravityCompat.START)
+                    launchAboutUsActivity()
                     true
                 }
                 else -> {
@@ -114,6 +125,10 @@ class MainActivity : AppCompatActivity(), ProductosListener {
             }
         }
 
+    }
+
+    private fun LaunchLogin() {
+        startActivity(Intent(this, LoginActivity::class.java))
     }
 
     private fun retrieveProdApi() {
