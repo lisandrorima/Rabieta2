@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.preference.PreferenceManager
 import com.example.rabieta.LOGED
 import com.example.rabieta.MainActivity
+import com.example.rabieta.USER_NAME
 import com.example.rabieta.db.UserDataDao
 import com.example.rabieta.models.UserData
 
@@ -20,11 +21,13 @@ class SharedPrefImpl (
 
     override fun EditSP(
         spName: String,
+        username:String,
         success: (UserData) -> Unit,
         error: () -> Unit
     ) {
         sharedPreferences.edit().apply{
             putBoolean(LOGED,true)
+            putString(USER_NAME,username)
             commit()
         }
     }

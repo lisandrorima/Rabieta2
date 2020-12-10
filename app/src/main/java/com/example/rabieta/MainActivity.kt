@@ -4,10 +4,13 @@ package com.example.rabieta
 import ProductosNetworkClient
 import android.content.Intent
 import android.content.SharedPreferences
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -30,6 +33,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.nav_header.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,6 +41,7 @@ import retrofit2.Response
 
 const val PRODUCTO_DETALLE = "productoDetalle"
 const val LOGED = "loged"
+const val USER_NAME = "userName"
 
 
 class MainActivity : AppCompatActivity(), ProductosListener {
@@ -48,17 +53,16 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     private lateinit var preferences: SharedPreferences
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
-
     private lateinit var toolbar: Toolbar
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         setTheme(R.style.AppTheme)
         preferences = PreferenceManager.getDefaultSharedPreferences(this)
-        preferences.edit().apply{
-            putBoolean(LOGED,false)
+        preferences.edit().apply {
+            putBoolean(LOGED, false)
+            putString(USER_NAME,"")
             commit()
         }
         super.onCreate(savedInstanceState)
@@ -68,6 +72,7 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     }
 
     private fun setupUI() {
+        rvProductos = findViewById(R.id.rvProductos)
         retrieveProdApi()
         setupToolbar()
         //CamQRPref()
@@ -80,7 +85,8 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     override fun onResume() {
         retrieveProdApi()
         //CamQRPref()
-        //DarkModePref()
+        //DarkModePref
+        setupDrawer()
         super.onResume()
     }
 
@@ -93,13 +99,41 @@ class MainActivity : AppCompatActivity(), ProductosListener {
 
     }
 
+    private fun setVisibilityLogued(username: String?) {
+
+        navView.getHeaderView(0).findViewById<TextView>(R.id.nav_header_textView).text = username
+        navView.getHeaderView(0).findViewById<TextView>(R.id.nav_header_textView).visibility =
+            View.VISIBLE
+        navView.menu.findItem(R.id.it_login).setVisible(false)
+        navView.menu.findItem(R.id.it_reg).setVisible(false)
+
+    }
+
+    private fun setVisibilityNotLogued() {
+
+        navView.getHeaderView(0).findViewById<TextView>(R.id.nav_header_textView).visibility =
+            View.GONE
+        navView.menu.findItem(R.id.it_login).isVisible = true
+        navView.menu.findItem(R.id.it_reg).isVisible = true
+
+    }
+
     private fun setupDrawer() {
+
         navView = findViewById(R.id.navigationView)
+
         drawerLayout = findViewById(R.id.drawerLayout)
+        if (preferences.getBoolean(LOGED, false)) {
+
+            setVisibilityLogued(preferences.getString(USER_NAME,""))
+        } else {
+            setVisibilityNotLogued()
+        }
+
         val drawertoggle =
             ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(drawertoggle)
-        rvProductos = findViewById(R.id.rvProductos)
+
         drawertoggle.syncState()
         selectNavigation()
     }
@@ -133,10 +167,6 @@ class MainActivity : AppCompatActivity(), ProductosListener {
             }
         }
 
-    }
-
-    private fun LaunchLogin() {
-        startActivity(Intent(this, LoginActivity::class.java))
     }
 
     private fun retrieveProdApi() {
@@ -175,22 +205,6 @@ class MainActivity : AppCompatActivity(), ProductosListener {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun launchAboutUsActivity() {
-        startActivity(Intent(this, AboutUsActivity::class.java))
-    }
-
-    private fun launchRegister() {
-        startActivity(Intent(this, RegisterActivity::class.java))
-    }
-
-    private fun lauchCarritoActivity() {
-        startActivity(Intent(this, CarritoActiviity::class.java))
-    }
-
-    private fun launchSettings() {
-        startActivity(Intent(this, PreferenceActivity::class.java))
-    }
-
     override fun onProductoClicked(producto: Producto) {
         if (producto.Tipo == "Bebida") {
             startActivity(
@@ -205,9 +219,6 @@ class MainActivity : AppCompatActivity(), ProductosListener {
         }
     }
 
-    private fun launchCamActivity() {
-        startActivity(Intent(this, QrActivity::class.java))
-    }
 
     private fun DarkModePref() {
         Single.fromCallable {
@@ -244,7 +255,6 @@ class MainActivity : AppCompatActivity(), ProductosListener {
             })
     }
 
-
     private fun CamQRPref() {
         Single.fromCallable { preferences.getBoolean("swHideQr", true) }
             .subscribeOn(Schedulers.io())
@@ -269,7 +279,6 @@ class MainActivity : AppCompatActivity(), ProductosListener {
             })
     }
 
-
     override fun onBackPressed() {
         if (this.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             this.drawerLayout.closeDrawer(GravityCompat.START)
@@ -281,5 +290,30 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     override fun onSupportNavigateUp(): Boolean {
         drawerLayout.openDrawer(navView)
         return true
+    }
+
+
+    private fun LaunchLogin() {
+        startActivity(Intent(this, LoginActivity::class.java))
+    }
+
+    private fun launchCamActivity() {
+        startActivity(Intent(this, QrActivity::class.java))
+    }
+
+    private fun launchAboutUsActivity() {
+        startActivity(Intent(this, AboutUsActivity::class.java))
+    }
+
+    private fun launchRegister() {
+        startActivity(Intent(this, RegisterActivity::class.java))
+    }
+
+    private fun lauchCarritoActivity() {
+        startActivity(Intent(this, CarritoActiviity::class.java))
+    }
+
+    private fun launchSettings() {
+        startActivity(Intent(this, PreferenceActivity::class.java))
     }
 }

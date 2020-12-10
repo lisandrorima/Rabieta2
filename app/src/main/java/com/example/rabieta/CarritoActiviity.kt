@@ -5,12 +5,14 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rabieta.adapter.OrdenesAdapter
 import com.example.rabieta.db.OrdenRepository
@@ -62,24 +64,30 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
     }
 
     private fun post(ordenes: List<Orden>) {
-        OrdenesNetworkClient.ordenesApi.enviarOrden(ordenes)
-            .enqueue(object : retrofit2.Callback<List<Orden>> {
+        if(validateLogin()){
+            OrdenesNetworkClient.ordenesApi.enviarOrden(ordenes)
+                .enqueue(object : retrofit2.Callback<List<Orden>> {
 
-                override fun onResponse(call: Call<List<Orden>>, response: Response<List<Orden>>) {
-                    for (orden in ordenes) {
-                        OrdenRepository(this@CarritoActiviity.applicationContext)
-                            .deleteOrden(orden)
+                    override fun onResponse(call: Call<List<Orden>>, response: Response<List<Orden>>) {
+                        for (orden in ordenes) {
+                            OrdenRepository(this@CarritoActiviity.applicationContext)
+                                .deleteOrden(orden)
 
+                        }
+                        showNotification()
+                        finish()
                     }
-                    showNotification()
-                    finish()
-                }
 
-                override fun onFailure(call: Call<List<Orden>>, t: Throwable) {
-                    Log.e("Carrito", "Error al mandar la info", t)
-                }
+                    override fun onFailure(call: Call<List<Orden>>, t: Throwable) {
+                        Log.e("Carrito", "Error al mandar la info", t)
+                    }
 
-            })
+                })
+        }else{
+            Toast.makeText(this, getString(R.string.error_carrito), Toast.LENGTH_LONG).show()
+
+        }
+
     }
 
     private fun setupToolbar() {
@@ -94,7 +102,11 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
         super.onResume()
     }
 
-
+    private fun validateLogin ()
+    : Boolean {
+        var logueado : Boolean = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(LOGED,false)
+        return logueado
+    }
     private fun retrieveOrdenes() {
 
         OrdenRepository(this)

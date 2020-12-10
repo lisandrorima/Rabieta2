@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import com.example.rabieta.PRODUCTO_DETALLE
 import com.example.rabieta.Repositories.ILoginRepository
 import com.example.rabieta.Repositories.ISharedPreferencesRep
+import com.example.rabieta.USER_NAME
 import com.example.rabieta.ui.ILoginActivityView
 
 class LoginPresenterImpl(
@@ -21,7 +22,7 @@ class LoginPresenterImpl(
                 .getUser(user, {
                     if ((it.email == user) && (it.password == pass)) {
                         sharedRepository.GetSP(PRODUCTO_DETALLE,{},{})
-                        sharedRepository.EditSP(PRODUCTO_DETALLE,{},{})
+                        sharedRepository.EditSP(PRODUCTO_DETALLE, it.email,{},{})
 
                         view.hideLoading()
                         view.goToNextScreen()

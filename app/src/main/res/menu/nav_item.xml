@@ -21,16 +21,17 @@
         app:showAsAction="ifRoom" />
 
 
-    <item
-        android:id="@+id/it_deslog"
-        android:icon="@drawable/ic_outline_power_settings_new_24"
-        android:title="@string/salir"
-        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/it_aboutUs"
         android:icon="@drawable/ic_baseline_info_24"
         android:title="@string/AboutUs"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/it_deslog"
+        android:icon="@drawable/ic_outline_power_settings_new_24"
+        android:title="@string/salir"
         app:showAsAction="ifRoom" />
 
 </menu>
