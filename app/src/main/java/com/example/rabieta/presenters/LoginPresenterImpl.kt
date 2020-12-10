@@ -1,25 +1,33 @@
 package com.example.rabieta.presenters
 
 import android.content.SharedPreferences
+import com.example.rabieta.PRODUCTO_DETALLE
 import com.example.rabieta.Repositories.ILoginRepository
+import com.example.rabieta.Repositories.ISharedPreferencesRep
 import com.example.rabieta.ui.ILoginActivityView
 
 class LoginPresenterImpl(
     private val view: ILoginActivityView,
-    private val repository: ILoginRepository
+    private val repository: ILoginRepository,
+    private val sharedRepository: ISharedPreferencesRep
 ) : ILoginPresenter {
     private var isValidData = true
     override fun doLogin(user: String, pass: String) {
         view.showLoading()
+
         validateData(user, pass)
         if (isValidData){
             repository
                 .getUser(user, {
                     if ((it.email == user) && (it.password == pass)) {
-                        // Agregar al SHARED
+                        sharedRepository.GetSP(PRODUCTO_DETALLE,{},{})
+                        sharedRepository.EditSP(PRODUCTO_DETALLE,{},{})
+
+                        view.hideLoading()
+                        view.goToNextScreen()
+
                     }
-                    view.hideLoading()
-                    view.goToNextScreen()
+
                 }, {
                     view.hideLoading()
                     view.showError()

@@ -1,5 +1,6 @@
 package com.example.rabieta.ui
 
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -8,8 +9,10 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.preference.PreferenceManager
 import com.example.rabieta.R
 import com.example.rabieta.Repositories.LoginRepositoryImpl
+import com.example.rabieta.Repositories.SharedPrefImpl
 import com.example.rabieta.db.UserDataDao
 import com.example.rabieta.presenters.ILoginPresenter
 import com.example.rabieta.presenters.LoginPresenterImpl
@@ -26,13 +29,15 @@ class LoginActivity : AppCompatActivity() , ILoginActivityView{
     private lateinit var containerLog : ConstraintLayout
     private lateinit var logingBackgroun : View
     private lateinit var progressBarLog : ProgressBar
+    private val preferences :SharedPreferences by lazy { PreferenceManager.getDefaultSharedPreferences(this) }
     private val presenter : ILoginPresenter by lazy{
         LoginPresenterImpl(
             this,
             LoginRepositoryImpl(
                 UserDataDao(this@LoginActivity.applicationContext),
                 compositeDisposable
-            )
+            ),
+            SharedPrefImpl(preferences,this)
         )
     }
 

@@ -54,7 +54,7 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
         retrieveOrdenes()
         coordinatorLayout = findViewById(R.id.coordinatorLayout)
         fabAdd = findViewById(R.id.floatingActionButton)
-      //  setupToolbar()
+        setupToolbar()
         rvOrdenes = findViewById(R.id.rvOrdenes)
         rvOrdenes.adapter = adapter
         fabAdd.setOnClickListener { post(ordenessend) }

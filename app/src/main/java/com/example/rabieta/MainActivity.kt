@@ -36,6 +36,8 @@ import retrofit2.Response
 
 
 const val PRODUCTO_DETALLE = "productoDetalle"
+const val LOGED = "loged"
+
 
 class MainActivity : AppCompatActivity(), ProductosListener {
 
@@ -50,9 +52,15 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     private lateinit var toolbar: Toolbar
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         setTheme(R.style.AppTheme)
         preferences = PreferenceManager.getDefaultSharedPreferences(this)
+        preferences.edit().apply{
+            putBoolean(LOGED,false)
+            commit()
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupUI()
