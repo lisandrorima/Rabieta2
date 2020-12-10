@@ -1,5 +1,6 @@
 package com.example.rabieta.ui
 
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,6 +19,7 @@ import com.example.rabieta.presenters.ILoginPresenter
 import com.example.rabieta.presenters.LoginPresenterImpl
 import com.google.android.material.textfield.TextInputEditText
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.android.synthetic.main.activity_register.*
 
 class LoginActivity : AppCompatActivity() , ILoginActivityView{
 
@@ -58,7 +60,11 @@ class LoginActivity : AppCompatActivity() , ILoginActivityView{
         progressBarLog = findViewById(R.id.progressBarLogin)
 
         btnLogin.setOnClickListener { loginUser() }
+        btnRegister.setOnClickListener { launchRegister() }
+    }
 
+    private fun launchRegister() {
+        startActivity(Intent(this,RegisterActivity::class.java))
     }
 
     private fun loginUser() {
@@ -94,4 +100,5 @@ class LoginActivity : AppCompatActivity() , ILoginActivityView{
     }
 
     private fun getTextFrom(editText: EditText) = editText.text.toString()
+
 }

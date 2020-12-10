@@ -82,9 +82,6 @@ class RegisterActivity : AppCompatActivity(), IRegisterActivityView {
         Toast.makeText(this, getString(R.string.error_register), Toast.LENGTH_LONG).show()
     }
 
-    private fun getTextFrom(editText: EditText) = editText.text.toString()
-
-
     override fun invalidUser() {
         etUser.error = getString(R.string.reg_error_nombre)
 

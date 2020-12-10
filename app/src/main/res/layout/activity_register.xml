@@ -25,7 +25,7 @@
             android:id="@+id/btnCancel"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="128dp"
+            android:layout_marginBottom="120dp"
             android:text="@string/cancelReg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/rightGuide3"
@@ -36,7 +36,6 @@
             android:id="@+id/btnReg"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
             android:text="@string/btnRegisterReg"
             app:layout_constraintEnd_toStartOf="@+id/btnCancel"
             app:layout_constraintHorizontal_bias="0.5"
@@ -72,7 +71,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/userReg"
-                android:inputType="text|textEmailAddress" />
+                android:inputType="text|textEmailAddress"
+                android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -87,7 +87,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/passReg" />
+                android:hint="@string/passReg"
+                android:inputType="textWebPassword"
+                android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -102,7 +104,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/pass2Reg" />
+                android:hint="@string/pass2Reg"
+                android:inputType="textWebPassword"
+                android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

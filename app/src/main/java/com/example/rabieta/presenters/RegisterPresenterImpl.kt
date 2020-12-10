@@ -22,12 +22,15 @@ class RegisterPresenterImpl(
                 }, {
                     registerView.hideSaving()
                     registerView.showErrorMsg()
-
                 })
+        }
+        else{
+            registerView.hideSaving()
         }
     }
 
     private fun validateData(user: String, pass1: String, pass2: String) {
+        isUserDataValid = true
         validateUser(user)
         validatePass1(pass1)
         validatePass2(pass1, pass2)

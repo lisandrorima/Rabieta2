@@ -4,14 +4,12 @@ package com.example.rabieta
 import ProductosNetworkClient
 import android.content.Intent
 import android.content.SharedPreferences
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -33,7 +31,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.nav_header.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -60,11 +57,12 @@ class MainActivity : AppCompatActivity(), ProductosListener {
 
         setTheme(R.style.AppTheme)
         preferences = PreferenceManager.getDefaultSharedPreferences(this)
-        preferences.edit().apply {
-            putBoolean(LOGED, false)
-            putString(USER_NAME,"")
-            commit()
-        }
+        //preferences.edit().apply {
+        //    putBoolean(LOGED, false)
+        //    putString(USER_NAME,"")
+        //    commit()
+        //}
+        setLogout()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupUI()
@@ -125,7 +123,7 @@ class MainActivity : AppCompatActivity(), ProductosListener {
         drawerLayout = findViewById(R.id.drawerLayout)
         if (preferences.getBoolean(LOGED, false)) {
 
-            setVisibilityLogued(preferences.getString(USER_NAME,""))
+            setVisibilityLogued(preferences.getString(USER_NAME, ""))
         } else {
             setVisibilityNotLogued()
         }
@@ -153,12 +151,17 @@ class MainActivity : AppCompatActivity(), ProductosListener {
                 }
                 R.id.it_login -> {
                     this.drawerLayout.closeDrawer(GravityCompat.START)
-                    LaunchLogin()
+                    launchLogin()
                     true
                 }
                 R.id.it_aboutUs -> {
                     this.drawerLayout.closeDrawer(GravityCompat.START)
                     launchAboutUsActivity()
+                    true
+                }
+                R.id.it_deslog -> {
+                    this.drawerLayout.closeDrawer(GravityCompat.START)
+                    setLogout()
                     true
                 }
                 else -> {
@@ -167,6 +170,14 @@ class MainActivity : AppCompatActivity(), ProductosListener {
             }
         }
 
+    }
+
+    private fun setLogout() {
+        preferences.edit().apply {
+            putBoolean(LOGED, false)
+            putString(USER_NAME, "")
+            apply()
+        }
     }
 
     private fun retrieveProdApi() {
@@ -293,7 +304,7 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     }
 
 
-    private fun LaunchLogin() {
+    private fun launchLogin() {
         startActivity(Intent(this, LoginActivity::class.java))
     }
 

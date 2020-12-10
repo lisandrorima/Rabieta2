@@ -23,16 +23,16 @@ class LoginPresenterImpl(
                     if ((it.email == user) && (it.password == pass)) {
                         sharedRepository.GetSP(PRODUCTO_DETALLE,{},{})
                         sharedRepository.EditSP(PRODUCTO_DETALLE, it.email,{},{})
-
                         view.hideLoading()
                         view.goToNextScreen()
-
                     }
 
                 }, {
                     view.hideLoading()
                     view.showError()
                 })
+        }else{
+            view.hideLoading()
         }
     }
 
