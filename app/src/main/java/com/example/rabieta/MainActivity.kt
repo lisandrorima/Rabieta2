@@ -57,11 +57,6 @@ class MainActivity : AppCompatActivity(), ProductosListener {
 
         setTheme(R.style.AppTheme)
         preferences = PreferenceManager.getDefaultSharedPreferences(this)
-        //preferences.edit().apply {
-        //    putBoolean(LOGED, false)
-        //    putString(USER_NAME,"")
-        //    commit()
-        //}
         setLogout()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -108,12 +103,12 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     }
 
     private fun setVisibilityNotLogued() {
-
         navView.getHeaderView(0).findViewById<TextView>(R.id.nav_header_textView).visibility =
             View.GONE
         navView.menu.findItem(R.id.it_login).isVisible = true
         navView.menu.findItem(R.id.it_reg).isVisible = true
-
+        navView.menu.clear()
+        navView.inflateMenu(R.menu.nav_item)
     }
 
     private fun setupDrawer() {
@@ -162,6 +157,7 @@ class MainActivity : AppCompatActivity(), ProductosListener {
                 R.id.it_deslog -> {
                     this.drawerLayout.closeDrawer(GravityCompat.START)
                     setLogout()
+                    setupDrawer()
                     true
                 }
                 else -> {
