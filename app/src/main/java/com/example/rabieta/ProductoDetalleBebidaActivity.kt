@@ -59,26 +59,25 @@ class ProductoDetalleBebidaActivity : AppCompatActivity() {
         }
     }
 
-    private fun getRadioButon(checkedID: Int): String {
+    private fun getRadioButon(): String {
 
-        var nota = ""
-        if (checkedID == R.id.rbLata) {
-            nota = "LATA"
-        }
-        if (checkedID == R.id.rbMediaPinta) {
-            nota = "MEDIA PINTA"
-        }
-        if (checkedID == R.id.rbPinta) {
-            nota = "PINTA"
+        var nota = when (getRadioButtonSelected()){
+            R.id.rbLata -> getString(R.string.Lata)
+            R.id.rbPinta -> getString(R.string.Pinta)
+            R.id.rbMediaPinta -> getString(R.string.MediaPinta)
+            else -> getString(R.string.vacio)
         }
         return nota
     }
 
+    private fun getRadioButtonSelected(): Int{
+        return rgTamaño.checkedRadioButtonId
+    }
 
     private fun AgregarBebidaAlCarro(producto: Producto?) {
         var orden = Orden(producto)
         orden.Cantidad = txtCantOrdenBebida.text.toString()
-        orden.NotaAdicionales = getRadioButon(rgTamaño.checkedRadioButtonId)
+        orden.NotaAdicionales = getRadioButon()
         OrdenRepository(this@ProductoDetalleBebidaActivity.applicationContext).addOrden(orden).subscribe()
         finish()
     }

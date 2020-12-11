@@ -56,29 +56,25 @@ class MainActivity : AppCompatActivity(), ProductosListener {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         setTheme(R.style.AppTheme)
-        preferences = PreferenceManager.getDefaultSharedPreferences(this)
-        setLogout()
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupUI()
-
     }
 
     private fun setupUI() {
+        preferences = PreferenceManager.getDefaultSharedPreferences(this)
+        setLogout()
         rvProductos = findViewById(R.id.rvProductos)
         retrieveProdApi()
         setupToolbar()
-        //CamQRPref()
-        //DarkModePref()
-        setupDrawer()
         rvProductos.adapter = adapter
-
     }
 
     override fun onResume() {
         retrieveProdApi()
-        //CamQRPref()
-        //DarkModePref
+        CamQRPref()
+        DarkModePref()
         setupDrawer()
         super.onResume()
     }

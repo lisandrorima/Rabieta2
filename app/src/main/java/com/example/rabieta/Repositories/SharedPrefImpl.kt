@@ -28,7 +28,7 @@ class SharedPrefImpl (
         sharedPreferences.edit().apply{
             putBoolean(LOGED,true)
             putString(USER_NAME,username)
-            commit()
+            apply()
         }
     }
 

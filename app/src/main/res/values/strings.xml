@@ -52,5 +52,6 @@
     <string name="login">Acceder a mi cuenta</string>
     <string name="AboutUs">Sobre nosotros</string>
     <string name="error_carrito">Debe loguearse para realizar el pedido</string>
+    <string name="vacio" />
 
 </resources>
