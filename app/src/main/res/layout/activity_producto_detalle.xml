@@ -111,8 +111,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:background="#C9CCCB"
+        android:textColor="@color/secondary_text"
+        android:textColorHighlight="#FFFFFF"
         android:textSize="24sp"
-        android:textStyle="bold"
+        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="@+id/imgDetalleComida"
         app:layout_constraintStart_toEndOf="@+id/txtPrecioFinalComDet"
         tools:text="80" />

@@ -84,10 +84,6 @@ class ProductoDetalleActivity : AppCompatActivity() {
         supportActionBar?.title = titulo
     }
 
-    private fun lauchMainActivity() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-    }
 
     fun checkbox_clicked(): String {
         var notas = ""

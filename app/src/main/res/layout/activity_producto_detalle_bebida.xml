@@ -102,8 +102,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:background="#C9CCCB"
+        android:textColor="@color/secondary_text"
         android:textSize="24sp"
-        android:textStyle="bold"
+        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="@+id/imgProductoDetalleBebida"
         app:layout_constraintStart_toEndOf="@+id/txtPrecioFinalBebida"
         tools:text="$100" />
