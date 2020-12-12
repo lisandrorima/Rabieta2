@@ -46,7 +46,7 @@ class QrActivity : AppCompatActivity() {
         codeScanner.isFlashEnabled = false
 
         codeScanner.decodeCallback = DecodeCallback {
-            runOnUiThread{
+            runOnUiThread {
                 if (it.toString().toIntOrNull() != null) {
 
                     ProductosNetworkClient.productosApi.GetProductoByID(it.toString())
@@ -73,17 +73,19 @@ class QrActivity : AppCompatActivity() {
                         })
                 } else {
                     Toast.makeText(this, "Scan result: ${it.text} ", Toast.LENGTH_LONG).show()
-                }}
-
-
+                }
             }
 
 
+        }
+
+
         codeScanner.errorCallback = ErrorCallback {
-        runOnUiThread{
+            runOnUiThread {
                 Toast.makeText(this, "Camera error: ${it.message}", Toast.LENGTH_LONG).show()
 
-        }}
+            }
+        }
 
         checkPermission()
     }

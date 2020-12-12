@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity(), ProductosListener {
 
     private fun setupUI() {
         preferences = PreferenceManager.getDefaultSharedPreferences(this)
-        setLogout()
+        initPref()
         rvProductos = findViewById(R.id.rvProductos)
         retrieveProdApi()
         setupToolbar()
@@ -170,6 +170,17 @@ class MainActivity : AppCompatActivity(), ProductosListener {
             putString(USER_NAME, "")
             apply()
         }
+    }
+
+    private fun initPref() {
+        if (!(preferences.getBoolean(LOGED, false))) {
+            preferences.edit().apply {
+                putBoolean(LOGED, false)
+                putString(USER_NAME, "")
+                apply()
+            }
+        }
+
     }
 
     private fun retrieveProdApi() {

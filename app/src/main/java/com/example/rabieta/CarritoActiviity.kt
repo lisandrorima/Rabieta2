@@ -24,9 +24,12 @@ import com.google.android.material.snackbar.Snackbar
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import io.reactivex.CompletableObserver
+import io.reactivex.Single
 import io.reactivex.SingleObserver
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -64,14 +67,18 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
     }
 
     private fun post(ordenes: List<Orden>) {
-        if(validateLogin()){
+        if (validateLogin()) {
             OrdenesNetworkClient.ordenesApi.enviarOrden(ordenes)
                 .enqueue(object : retrofit2.Callback<List<Orden>> {
 
-                    override fun onResponse(call: Call<List<Orden>>, response: Response<List<Orden>>) {
+                    override fun onResponse(
+                        call: Call<List<Orden>>,
+                        response: Response<List<Orden>>
+                    ) {
                         for (orden in ordenes) {
                             OrdenRepository(this@CarritoActiviity.applicationContext)
                                 .deleteOrden(orden)
+                                .subscribe()
 
                         }
                         showNotification()
@@ -83,7 +90,7 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
                     }
 
                 })
-        }else{
+        } else {
             Toast.makeText(this, getString(R.string.error_carrito), Toast.LENGTH_LONG).show()
 
         }
@@ -102,11 +109,12 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
         super.onResume()
     }
 
-    private fun validateLogin ()
-    : Boolean {
-        var logueado : Boolean = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(LOGED,false)
+    private fun validateLogin(): Boolean {
+        var logueado: Boolean =
+            PreferenceManager.getDefaultSharedPreferences(this).getBoolean(LOGED, false)
         return logueado
     }
+
     private fun retrieveOrdenes() {
 
         OrdenRepository(this)
@@ -133,12 +141,13 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
 
     }
 
-    private fun deleteOrden(orden: Orden){
+    private fun deleteOrden(orden: Orden) {
         compositeDisposable.add(
             OrdenRepository(this@CarritoActiviity.applicationContext)
                 .deleteOrden(orden)
                 .subscribe()
-    )}
+        )
+    }
 
 
     override fun onDeleteClicked(orden: Orden) {

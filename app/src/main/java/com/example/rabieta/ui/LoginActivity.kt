@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -18,28 +19,33 @@ import com.example.rabieta.db.UserDataDao
 import com.example.rabieta.presenters.ILoginPresenter
 import com.example.rabieta.presenters.LoginPresenterImpl
 import com.google.android.material.textfield.TextInputEditText
+import io.reactivex.Single
+import io.reactivex.SingleObserver
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_register.*
 
-class LoginActivity : AppCompatActivity() , ILoginActivityView{
+class LoginActivity : AppCompatActivity(), ILoginActivityView {
 
-    private lateinit var etUserLog : TextInputEditText
+    private lateinit var etUserLog: TextInputEditText
     private lateinit var etPassLog: TextInputEditText
-    private lateinit var btnLogin : Button
-    private lateinit var btnRegister : Button
+    private lateinit var btnLogin: Button
+    private lateinit var btnRegister: Button
     private val compositeDisposable = CompositeDisposable()
-    private lateinit var containerLog : ConstraintLayout
-    private lateinit var logingBackgroun : View
-    private lateinit var progressBarLog : ProgressBar
-    private val preferences :SharedPreferences by lazy { PreferenceManager.getDefaultSharedPreferences(this) }
-    private val presenter : ILoginPresenter by lazy{
+    private lateinit var containerLog: ConstraintLayout
+    private lateinit var logingBackgroun: View
+    private lateinit var progressBarLog: ProgressBar
+    private lateinit var preferences: SharedPreferences
+    private val presenter: ILoginPresenter by lazy {
         LoginPresenterImpl(
             this,
             LoginRepositoryImpl(
                 UserDataDao(this@LoginActivity.applicationContext),
                 compositeDisposable
             ),
-            SharedPrefImpl(preferences,this)
+            SharedPrefImpl(preferences, this)
         )
     }
 
@@ -51,6 +57,7 @@ class LoginActivity : AppCompatActivity() , ILoginActivityView{
     }
 
     private fun setuUI() {
+        getSharedPref()
         etUserLog = findViewById(R.id.tvUserLog)
         etPassLog = findViewById(R.id.tvPassLog)
         btnLogin = findViewById(R.id.btnLogin)
@@ -64,7 +71,7 @@ class LoginActivity : AppCompatActivity() , ILoginActivityView{
     }
 
     private fun launchRegister() {
-        startActivity(Intent(this,RegisterActivity::class.java))
+        startActivity(Intent(this, RegisterActivity::class.java))
     }
 
     private fun loginUser() {
@@ -100,5 +107,26 @@ class LoginActivity : AppCompatActivity() , ILoginActivityView{
     }
 
     private fun getTextFrom(editText: EditText) = editText.text.toString()
+
+    private fun getSharedPref() {
+        Single.fromCallable {
+            PreferenceManager.getDefaultSharedPreferences(this)
+        }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : SingleObserver<SharedPreferences> {
+                override fun onSubscribe(d: Disposable) {
+                    compositeDisposable.add(d)
+                }
+
+                override fun onSuccess(sharedPref: SharedPreferences) {
+                    preferences = sharedPref
+                }
+
+                override fun onError(e: Throwable) {
+                    Log.i("LoginActivity", "Error al obtener preferencias ", e)
+                }
+            })
+    }
 
 }
