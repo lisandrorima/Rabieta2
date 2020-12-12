@@ -5,6 +5,9 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -48,6 +51,8 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
     private lateinit var fabAdd: FloatingActionButton
     private lateinit var coordinatorLayout: CoordinatorLayout
     private lateinit var ordenessend: List<Orden>
+    private lateinit var ImgCarrito: ImageView
+    private lateinit var txtEmpty: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +67,8 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
         setupToolbar()
         rvOrdenes = findViewById(R.id.rvOrdenes)
         rvOrdenes.adapter = adapter
+        ImgCarrito = findViewById(R.id.imgEmpty)
+        txtEmpty = findViewById(R.id.txtEmpty)
         fabAdd.setOnClickListener { post(ordenessend) }
 
     }
@@ -132,13 +139,15 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
                 }
 
                 override fun onSuccess(ordenes: List<Orden>) {
-                    adapter.updateOrdenes(ordenes)
-                    ordenessend = ordenes
-
+                    if (ordenes.isEmpty()){
+                        setVisibilityEpmpty()
+                    }else{
+                        setVisibilityFull()
+                        adapter.updateOrdenes(ordenes)
+                        ordenessend = ordenes
+                    }
                 }
-
             })
-
     }
 
     private fun deleteOrden(orden: Orden) {
@@ -218,6 +227,18 @@ class CarritoActiviity : AppCompatActivity(), OrdenesAdapter.OrdenesListener {
                     .from(this)
                     .notify(1, notification)
             }
+    }
+
+    private fun setVisibilityEpmpty() {
+        ImgCarrito.visibility = View.VISIBLE
+        fabAdd.visibility = View.GONE
+        txtEmpty.visibility = View.VISIBLE
+    }
+
+    private fun setVisibilityFull() {
+        ImgCarrito.visibility = View.GONE
+        fabAdd.visibility = View.VISIBLE
+        txtEmpty.visibility = View.GONE
     }
 }
 

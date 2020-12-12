@@ -26,7 +26,7 @@
     <string name="carrito">Mi Carrito</string>
     <string name="salir">Salir de mi sesión</string>
     <string name="registrar">Registrarme</string>
-
+    <string name="carritoVacio">Tu carrito esta vacio, agrega productos para hacer el pedido</string>
     <!--  Login Activity  -->
 
     <string name="btnLogin">Login</string>
