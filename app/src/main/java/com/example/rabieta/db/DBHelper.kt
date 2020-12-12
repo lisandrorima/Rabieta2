@@ -22,7 +22,8 @@ class DBHelper(context: Context) : OrmLiteSqliteOpenHelper(context, DB_NAME, nul
         newVersion: Int
     ) {
         if (oldVersion == 1 && newVersion == 2) {
-            TableUtils.createTableIfNotExists(connectionSource, UserData::class.java)
+            TableUtils.dropTable<Orden,String>(connectionSource,Orden::class.java, true)
+            onCreate(database,connectionSource)
         }
     }
 

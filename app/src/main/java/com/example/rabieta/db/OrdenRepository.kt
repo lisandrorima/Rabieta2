@@ -11,37 +11,35 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.http.DELETE
 
-class OrdenRepository (context: Context){
+class OrdenRepository(context: Context) {
 
-    private var dao : Dao<Orden,Int>
+    private var dao: Dao<Orden, Int>
 
-    init{
+    init {
         val helper = OpenHelperManager.getHelper(context, DBHelper::class.java)
         dao = helper.getDao(Orden::class.java)
     }
 
 
-
-    fun addOrden(orden: Orden) :Completable{
+    fun addOrden(orden: Orden): Completable {
         return Completable
-            .fromCallable {dao.create(orden)}
+            .fromCallable { dao.create(orden) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
 
 
-    fun deleteOrden(orden: Orden) : Completable{
+    fun deleteOrden(orden: Orden): Completable {
         return Completable
-            .fromCallable{dao.delete(orden)}
+            .fromCallable { dao.delete(orden) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
 
 
-
-    fun updateOrden(orden: Orden):Completable{
+    fun updateOrden(orden: Orden): Completable {
         return Completable
-            .fromCallable{dao.update(orden)}
+            .fromCallable { dao.update(orden) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
@@ -54,7 +52,6 @@ class OrdenRepository (context: Context){
             .observeOn(AndroidSchedulers.mainThread())
 
     }
-
 
 
 }
